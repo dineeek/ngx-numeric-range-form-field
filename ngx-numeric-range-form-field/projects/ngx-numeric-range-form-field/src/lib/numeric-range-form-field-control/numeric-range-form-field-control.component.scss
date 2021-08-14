@@ -1,6 +1,14 @@
 :host {
+  display: flex;
+
   .spacer {
     padding: 0 10px 0 0;
     cursor: context-menu;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
