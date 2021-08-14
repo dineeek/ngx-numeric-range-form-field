@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, NgControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NumericRangeFormService } from './form/numeric-range-form.service';
 import { INumericRange } from './model/numeric-range-field.model';
 
@@ -25,7 +25,7 @@ export class NumericRangeFormFieldControlComponent
 
   constructor(public formService: NumericRangeFormService) {}
   value: INumericRange;
-  stateChanges: Observable<void>;
+  stateChanges: Observable<void> = new Subject();
   id: string;
   placeholder: string;
   ngControl: NgControl;
