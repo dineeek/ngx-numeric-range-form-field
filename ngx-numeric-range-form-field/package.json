@@ -2,12 +2,11 @@
   "name": "ngx-numeric-range-form-field",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test": "ng test ngx-numeric-range-form-field --code-coverage",
+    "build": "ng build --project ngx-numeric-range-form-field --prod",
+    "publish": "cd dist/ngx-numeric-range-form-field && npm publish",
+    "start-demo": "ng serve --project ngx-numeric-range-form-field-demo --port=4200",
+    "remove-dist": "rd /s /q dist"
   },
   "private": true,
   "dependencies": {
