@@ -1,1 +1,15 @@
-<p>numeric-range-form-field-control works!</p>
+<input
+  [readonly]="readonly"
+  [formControl]="minimumControl"
+  matInput
+  [placeholder]="minPlaceholder"
+  type="number"
+/>
+<span class="spacer">&ndash;</span>
+<input
+  [formControl]="maximumControl"
+  [readonly]="readonly"
+  matInput
+  [placeholder]="maxPlaceholder"
+  type="number"
+/>
