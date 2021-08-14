@@ -18,12 +18,16 @@ export class NumericRangeFormService {
     });
   }
 
-  public get minimumControl(): FormControl {
+  get minimumControl(): FormControl {
     return this.formGroup.get('minimum') as FormControl;
   }
 
-  public get maximumControl(): FormControl {
+  get maximumControl(): FormControl {
     return this.formGroup.get('maximum') as FormControl;
+  }
+
+  get fieldFormGroup(): FormGroup {
+    return this.formGroup;
   }
 
   public setValue(value: INumericRange, emitEvent?: boolean): void {

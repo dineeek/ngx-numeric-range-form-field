@@ -5,7 +5,10 @@
 >
   <mat-label>{{ label }}</mat-label>
 
-  <ngx-numeric-range-form-field-control></ngx-numeric-range-form-field-control>
+  <ngx-numeric-range-form-field-control
+    id="numeric-range-form-control"
+    [formControl]="control"
+  ></ngx-numeric-range-form-field-control>
 
   <mat-icon *ngIf="resettable && !readonly" matSuffix>close </mat-icon>
 </mat-form-field>
