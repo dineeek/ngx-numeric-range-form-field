@@ -25,7 +25,7 @@ import {
   MatFormFieldControl,
 } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { NumericRangeFormService } from './form/numeric-range-form.service';
 import { NumericRangeStateMatcher } from './form/numeric-range-state-matcher';
 import { INumericRange } from './model/numeric-range-field.model';
@@ -220,12 +220,6 @@ export class NumericRangeFormFieldControlComponent
   }
 
   onRangeValuesChanged(): void {
-    console.log(
-      'CHANGE',
-      this.form.errors,
-      this.minimumControl.errors,
-      this.maximumControl.errors
-    );
     this.form.errors || this.minimumControl.errors || this.maximumControl.errors
       ? this.numericRangeChanged.emit(null)
       : this.numericRangeChanged.emit(this.form.value);

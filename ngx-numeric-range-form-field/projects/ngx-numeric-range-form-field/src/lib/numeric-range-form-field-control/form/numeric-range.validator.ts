@@ -7,7 +7,6 @@ export const numericRangeValues: ValidatorFn = (
   const min = Number(group.get('minimum').value);
   if (max && min) {
     if (max < min) {
-      console.log('Validator triggered!');
       return { notValidRange: true };
     }
   }

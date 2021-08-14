@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DoCheck,
   EventEmitter,
@@ -21,7 +22,7 @@ import {
   Validator,
 } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { NumericRangeFormService } from '../numeric-range-form-field-control/form/numeric-range-form.service';
 import { INumericRange } from '../numeric-range-form-field-control/model/numeric-range-field.model';
 
@@ -33,7 +34,7 @@ import { INumericRange } from '../numeric-range-form-field-control/model/numeric
   providers: [NumericRangeFormService],
 })
 export class NumericRangeFormFieldContainerComponent
-  implements OnInit, DoCheck, OnDestroy, ControlValueAccessor, Validator {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
   @Input() label: string;
   @Input() minPlaceholder = 'From';
   @Input() maxPlaceholder = 'To';
@@ -64,7 +65,8 @@ export class NumericRangeFormFieldContainerComponent
   constructor(
     @Self() public controlDirective: NgControl,
     @Optional() @Self() @Inject(NG_VALIDATORS) validators: any[],
-    private formService: NumericRangeFormService
+    private formService: NumericRangeFormService,
+    private readonly changeDetectorRef: ChangeDetectorRef
   ) {
     this.controlDirective.valueAccessor = this;
     this.control = new FormControl();
@@ -75,12 +77,7 @@ export class NumericRangeFormFieldContainerComponent
     this.control.setValidators(validator);
     this.control.updateValueAndValidity();
     this.controlDirective.control.setValidators(this.validate.bind(this));
-  }
-
-  ngDoCheck(): void {
-    if (this.controlDirective.touched) {
-      this.control.markAsTouched();
-    }
+    this.changeDetectorRef.detectChanges();
   }
 
   writeValue(value: any): void {

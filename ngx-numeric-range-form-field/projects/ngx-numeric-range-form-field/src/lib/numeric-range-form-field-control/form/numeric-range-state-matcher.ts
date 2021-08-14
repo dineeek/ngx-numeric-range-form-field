@@ -6,6 +6,8 @@ export class NumericRangeStateMatcher implements ErrorStateMatcher {
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null
   ): boolean {
-    return control?.touched && control?.dirty && control?.invalid;
+    console.log('TOUCHED', control.touched);
+
+    return control.dirty && control.invalid;
   }
 }

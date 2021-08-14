@@ -1,10 +1,12 @@
 :host {
-  display: flex;
-  align-items: center;
+  .input-fields {
+    display: flex;
+    align-items: center;
 
-  .spacer {
-    padding: 0 10px 0 0;
-    cursor: context-menu;
+    .spacer {
+      padding: 0 10px 0 0;
+      cursor: context-menu;
+    }
   }
 
   input::-webkit-outer-spin-button,
