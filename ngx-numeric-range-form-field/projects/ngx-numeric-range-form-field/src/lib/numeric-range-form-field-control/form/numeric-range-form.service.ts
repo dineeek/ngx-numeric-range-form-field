@@ -6,16 +6,20 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { INumericRange } from '../model/numeric-range-field.model';
+import { numericRangeValues } from './numeric-range.validator';
 
 @Injectable()
 export class NumericRangeFormService {
   private formGroup!: FormGroup;
 
   constructor() {
-    this.formGroup = new FormGroup({
-      minimum: new FormControl(null),
-      maximum: new FormControl(null),
-    });
+    this.formGroup = new FormGroup(
+      {
+        minimum: new FormControl(null),
+        maximum: new FormControl(null),
+      },
+      numericRangeValues
+    );
   }
 
   get minimumControl(): FormControl {

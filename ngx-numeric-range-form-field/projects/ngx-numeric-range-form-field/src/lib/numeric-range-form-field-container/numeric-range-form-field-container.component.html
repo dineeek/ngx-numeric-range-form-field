@@ -4,11 +4,20 @@
   class="numeric-range-field"
 >
   <mat-label>{{ label }}</mat-label>
-
   <ngx-numeric-range-form-field-control
     id="numeric-range-form-control"
     [formControl]="control"
+    [minPlaceholder]="minPlaceholder"
+    [maxPlaceholder]="maxPlaceholder"
+    [readonly]="readonly"
+    (blurred)="onBlur()"
+    (enterPressed)="onEnterPressed()"
+    (numericRangeChanged)="onRangeValuesChanged($event)"
   ></ngx-numeric-range-form-field-control>
 
   <mat-icon *ngIf="resettable && !readonly" matSuffix>close </mat-icon>
+
+  <mat-error *ngIf="control.hasError('notValidRange')">
+    Not valid range!
+  </mat-error>
 </mat-form-field>

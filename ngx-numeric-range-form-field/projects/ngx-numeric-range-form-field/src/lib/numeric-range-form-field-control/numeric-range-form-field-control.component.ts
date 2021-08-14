@@ -28,6 +28,7 @@ import {
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NumericRangeFormService } from './form/numeric-range-form.service';
+import { NumericRangeStateMatcher } from './form/numeric-range-state-matcher';
 import { INumericRange } from './model/numeric-range-field.model';
 
 @Component({
@@ -39,6 +40,10 @@ import { INumericRange } from './model/numeric-range-field.model';
     {
       provide: MatFormFieldControl,
       useExisting: NumericRangeFormFieldControlComponent,
+    },
+    {
+      provide: ErrorStateMatcher,
+      useClass: NumericRangeStateMatcher,
     },
   ],
 })
@@ -71,6 +76,10 @@ export class NumericRangeFormFieldControlComponent
   @Input() itemWidth = '100%';
   @Input() errorStateMatcher: ErrorStateMatcher;
   @Input() autofilled?: boolean;
+
+  @Output() blurred = new EventEmitter<void>();
+  @Output() enterPressed = new EventEmitter<void>();
+  @Output() numericRangeChanged = new EventEmitter<INumericRange>();
 
   @HostBinding('attr.aria-describedby')
   userAriaDescribedBy = '';
@@ -198,6 +207,30 @@ export class NumericRangeFormFieldControlComponent
       errors[controlName] = controlErrors;
     }
     return errors;
+  }
+
+  onEnterPressed(): void {
+    if (
+      !this.form.errors &&
+      !this.minimumControl.errors &&
+      !this.maximumControl.errors
+    ) {
+      this.enterPressed.emit();
+    }
+  }
+
+  onBlur(): void {
+    this.blurred.emit();
+  }
+
+  onRangeValuesChanged(): void {
+    this.form.errors || this.minimumControl.errors || this.maximumControl.errors
+      ? this.numericRangeChanged.emit(null)
+      : this.numericRangeChanged.emit(this.form.value);
+  }
+
+  onReset(): void {
+    this.formService.reset();
   }
 
   ngOnDestroy(): void {

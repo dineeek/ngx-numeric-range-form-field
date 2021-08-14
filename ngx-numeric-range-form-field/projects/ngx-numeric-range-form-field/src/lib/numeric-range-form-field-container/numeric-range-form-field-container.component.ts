@@ -103,6 +103,18 @@ export class NumericRangeFormFieldContainerComponent
     return this.control.touched && this.control.dirty && this.control.errors;
   }
 
+  onEnterPressed(): void {
+    this.enterPressed.emit();
+  }
+
+  onBlur(): void {
+    this.blurred.emit();
+  }
+
+  onRangeValuesChanged(value: INumericRange): void {
+    this.numericRangeChanged.emit(value);
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
