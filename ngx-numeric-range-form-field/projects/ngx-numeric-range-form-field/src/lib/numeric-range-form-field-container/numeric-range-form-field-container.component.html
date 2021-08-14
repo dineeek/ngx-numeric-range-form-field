@@ -1,44 +1,44 @@
 <mat-form-field
-  appearance="outline"
-  floatLabel="always"
-  class="numeric-range-field"
+	appearance="outline"
+	floatLabel="always"
+	class="numeric-range-field"
 >
-  <mat-label>{{ label }}</mat-label>
-  <ngx-numeric-range-form-field-control
-    id="numeric-range-form-control"
-    [form]="formGroup"
-    [formControl]="control"
-    [minPlaceholder]="minPlaceholder"
-    [maxPlaceholder]="maxPlaceholder"
-    [readonly]="readonly"
-    (blurred)="onBlur()"
-    (enterPressed)="onEnterPressed()"
-    (numericRangeChanged)="onRangeValuesChanged($event)"
-  ></ngx-numeric-range-form-field-control>
+	<mat-label>{{ label }}</mat-label>
+	<ngx-numeric-range-form-field-control
+		id="numeric-range-form-control"
+		[form]="formGroup"
+		[formControl]="control"
+		[minPlaceholder]="minPlaceholder"
+		[maxPlaceholder]="maxPlaceholder"
+		[readonly]="readonly"
+		(blurred)="onBlur()"
+		(enterPressed)="onEnterPressed()"
+		(numericRangeChanged)="onRangeValuesChanged($event)"
+	></ngx-numeric-range-form-field-control>
 
-  <mat-icon *ngIf="resettable && !readonly" matSuffix>close </mat-icon>
+	<mat-icon *ngIf="resettable && !readonly" matSuffix>close </mat-icon>
 
-  <mat-error
-    *ngIf="
-      minimumControl.hasError('required') || maximumControl.hasError('required')
-    "
-  >
-    Required field!
-  </mat-error>
+	<mat-error
+		*ngIf="
+			minimumControl.hasError('required') || maximumControl.hasError('required')
+		"
+	>
+		Required field!
+	</mat-error>
 
-  <mat-error
-    *ngIf="minimumControl.hasError('min') || maximumControl.hasError('min')"
-  >
-    Minimum has been reached!
-  </mat-error>
+	<mat-error
+		*ngIf="minimumControl.hasError('min') || maximumControl.hasError('min')"
+	>
+		Minimum has been reached!
+	</mat-error>
 
-  <mat-error
-    *ngIf="minimumControl.hasError('max') || maximumControl.hasError('max')"
-  >
-    Maximum has exceeded!
-  </mat-error>
+	<mat-error
+		*ngIf="minimumControl.hasError('max') || maximumControl.hasError('max')"
+	>
+		Maximum has exceeded!
+	</mat-error>
 
-  <mat-error *ngIf="formGroup.hasError('notValidRange')">
-    Not valid range!
-  </mat-error>
+	<mat-error *ngIf="formGroup.hasError('notValidRange')">
+		Not valid range!
+	</mat-error>
 </mat-form-field>

@@ -7,5 +7,32 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "author": {
+    "name": "Dino Klicek",
+    "email": "dineeek@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dineeek/ngx-numeric-range-form-field"
+  },
+  "description": "Custom numeric range input form field",
+  "keywords": [
+    "form field",
+    "numeric",
+    "range",
+    "number",
+    "mat form field",
+    "custom control",
+    "cva",
+    "library"
+  ],
+  "license": "Apache",
+  "homepage": "https://github.com/dineeek/ngx-numeric-range-form-field/blob/main/README.md",
+  "bugs": {
+    "url": "https://github.com/dineeek/ngx-numeric-range-form-field/issues"
   }
 }
