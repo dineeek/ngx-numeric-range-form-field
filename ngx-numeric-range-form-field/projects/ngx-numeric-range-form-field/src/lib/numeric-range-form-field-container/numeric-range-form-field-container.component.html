@@ -6,6 +6,7 @@
   <mat-label>{{ label }}</mat-label>
   <ngx-numeric-range-form-field-control
     id="numeric-range-form-control"
+    [form]="formGroup"
     [formControl]="control"
     [minPlaceholder]="minPlaceholder"
     [maxPlaceholder]="maxPlaceholder"
@@ -17,7 +18,27 @@
 
   <mat-icon *ngIf="resettable && !readonly" matSuffix>close </mat-icon>
 
-  <mat-error *ngIf="control.hasError('notValidRange')">
+  <mat-error
+    *ngIf="
+      minimumControl.hasError('required') || maximumControl.hasError('required')
+    "
+  >
+    Required field!
+  </mat-error>
+
+  <mat-error
+    *ngIf="minimumControl.hasError('min') || maximumControl.hasError('min')"
+  >
+    Minimum has been reached!
+  </mat-error>
+
+  <mat-error
+    *ngIf="minimumControl.hasError('max') || maximumControl.hasError('max')"
+  >
+    Maximum has exceeded!
+  </mat-error>
+
+  <mat-error *ngIf="formGroup.hasError('notValidRange')">
     Not valid range!
   </mat-error>
 </mat-form-field>

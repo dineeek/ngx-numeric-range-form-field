@@ -15,12 +15,14 @@ import {
   AbstractControl,
   ControlValueAccessor,
   FormControl,
+  FormGroup,
   NgControl,
   NG_VALIDATORS,
   Validator,
 } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NumericRangeFormService } from '../numeric-range-form-field-control/form/numeric-range-form.service';
 import { INumericRange } from '../numeric-range-form-field-control/model/numeric-range-field.model';
 
 @Component({
@@ -28,10 +30,11 @@ import { INumericRange } from '../numeric-range-form-field-control/model/numeric
   templateUrl: './numeric-range-form-field-container.component.html',
   styleUrls: ['./numeric-range-form-field-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [NumericRangeFormService],
 })
 export class NumericRangeFormFieldContainerComponent
   implements OnInit, DoCheck, OnDestroy, ControlValueAccessor, Validator {
-  @Input() label: string | undefined;
+  @Input() label: string;
   @Input() minPlaceholder = 'From';
   @Input() maxPlaceholder = 'To';
   @Input() readonly = false;
@@ -41,6 +44,7 @@ export class NumericRangeFormFieldContainerComponent
   @Output() enterPressed = new EventEmitter<void>();
   @Output() numericRangeChanged = new EventEmitter<INumericRange>();
 
+  formGroup: FormGroup = this.formService.fieldFormGroup;
   control: FormControl;
   disabled: boolean;
 
@@ -49,9 +53,18 @@ export class NumericRangeFormFieldContainerComponent
   onChange = () => {};
   onTouched = () => {};
 
+  get minimumControl(): FormControl {
+    return this.formService.minimumControl;
+  }
+
+  get maximumControl(): FormControl {
+    return this.formService.maximumControl;
+  }
+
   constructor(
     @Self() public controlDirective: NgControl,
-    @Optional() @Self() @Inject(NG_VALIDATORS) validators: any[]
+    @Optional() @Self() @Inject(NG_VALIDATORS) validators: any[],
+    private formService: NumericRangeFormService
   ) {
     this.controlDirective.valueAccessor = this;
     this.control = new FormControl();
@@ -86,7 +99,7 @@ export class NumericRangeFormFieldContainerComponent
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
 
     if (isDisabled) {
@@ -100,6 +113,7 @@ export class NumericRangeFormFieldContainerComponent
     if (this.control.valid) {
       return null;
     }
+
     return this.control.touched && this.control.dirty && this.control.errors;
   }
 

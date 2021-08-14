@@ -18,7 +18,7 @@ export class NumericRangeFormService {
         minimum: new FormControl(null),
         maximum: new FormControl(null),
       },
-      numericRangeValues
+      { validators: numericRangeValues }
     );
   }
 

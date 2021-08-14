@@ -1,4 +1,3 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
 import {
   Component,
   EventEmitter,
@@ -25,7 +24,7 @@ import {
   MatFormFieldAppearance,
   MatFormFieldControl,
 } from '@angular/material/form-field';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NumericRangeFormService } from './form/numeric-range-form.service';
 import { NumericRangeStateMatcher } from './form/numeric-range-state-matcher';
@@ -36,7 +35,6 @@ import { INumericRange } from './model/numeric-range-field.model';
   templateUrl: './numeric-range-form-field-control.component.html',
   styleUrls: ['./numeric-range-form-field-control.component.scss'],
   providers: [
-    NumericRangeFormService,
     {
       provide: MatFormFieldControl,
       useExisting: NumericRangeFormFieldControlComponent,
@@ -54,6 +52,7 @@ export class NumericRangeFormFieldControlComponent
     MatFormFieldControl<INumericRange>,
     ControlValueAccessor,
     Validator {
+  @Input() form: FormGroup;
   @Input() minPlaceholder: string;
   @Input() maxPlaceholder: string;
   @Input() readonly = false;
@@ -72,8 +71,6 @@ export class NumericRangeFormFieldControlComponent
   }
   @Input() required: boolean;
   @Input() disabled: boolean;
-  @Input() useShortDescription = true;
-  @Input() itemWidth = '100%';
   @Input() errorStateMatcher: ErrorStateMatcher;
   @Input() autofilled?: boolean;
 
@@ -122,7 +119,6 @@ export class NumericRangeFormFieldControlComponent
   }
 
   stateChanges = new Subject<void>();
-  form: FormGroup;
   focused = false;
   controlType = 'custom-vehicle-code-control';
 
@@ -139,7 +135,6 @@ export class NumericRangeFormFieldControlComponent
 
   constructor(
     public formService: NumericRangeFormService,
-    private focusMonitor: FocusMonitor,
     @Optional() @Self() public ngControl: NgControl,
     private errorMatcher: ErrorStateMatcher,
     @Optional() @Self() @Inject(NG_VALIDATORS) validators: any[]
@@ -147,7 +142,6 @@ export class NumericRangeFormFieldControlComponent
     if (ngControl !== null) {
       this.ngControl.valueAccessor = this;
     }
-    this.form = this.formService.fieldFormGroup;
   }
 
   ngOnInit(): void {
@@ -194,9 +188,11 @@ export class NumericRangeFormFieldControlComponent
     if (this.form.valid) {
       return null;
     }
+
     let errors: any = {};
     errors = this.addControlErrors(errors, 'minimum');
     errors = this.addControlErrors(errors, 'maximum');
+
     return errors;
   }
 
@@ -224,6 +220,12 @@ export class NumericRangeFormFieldControlComponent
   }
 
   onRangeValuesChanged(): void {
+    console.log(
+      'CHANGE',
+      this.form.errors,
+      this.minimumControl.errors,
+      this.maximumControl.errors
+    );
     this.form.errors || this.minimumControl.errors || this.maximumControl.errors
       ? this.numericRangeChanged.emit(null)
       : this.numericRangeChanged.emit(this.form.value);
