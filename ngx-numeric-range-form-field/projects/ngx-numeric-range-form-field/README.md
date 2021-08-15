@@ -69,11 +69,7 @@ form: FormGroup;
 	}
 
 	onValueChange(value: INumericRange): void {
-		console.log(
-			'Changed value: ',
-			value,
-			this.rangeControl.hasError('notValidRange')
-		);
+		console.log('Changed value: ', value);
 	}
 ```
 
