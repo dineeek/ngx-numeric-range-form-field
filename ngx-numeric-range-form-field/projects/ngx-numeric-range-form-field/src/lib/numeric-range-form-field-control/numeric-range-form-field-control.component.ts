@@ -56,6 +56,11 @@ export class NumericRangeFormFieldControlComponent
 	@Input() minPlaceholder: string;
 	@Input() maxPlaceholder: string;
 	@Input() readonly = false;
+
+	@Output() blurred = new EventEmitter<void>();
+	@Output() enterPressed = new EventEmitter<void>();
+	@Output() numericRangeChanged = new EventEmitter<INumericRange>();
+
 	@Input()
 	set value(val: INumericRange) {
 		this.form.patchValue(val);
@@ -73,10 +78,6 @@ export class NumericRangeFormFieldControlComponent
 	@Input() disabled: boolean;
 	@Input() errorStateMatcher: ErrorStateMatcher;
 	@Input() autofilled?: boolean;
-
-	@Output() blurred = new EventEmitter<void>();
-	@Output() enterPressed = new EventEmitter<void>();
-	@Output() numericRangeChanged = new EventEmitter<INumericRange>();
 
 	@HostBinding('attr.aria-describedby')
 	userAriaDescribedBy = '';
@@ -106,12 +107,8 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	get errorState() {
-		//const matcher = this.errorStateMatcher || this.errorMatcher;
-		const matcher = new NumericRangeStateMatcher();
-		return matcher.isErrorState(
-			this.ngControl.control as FormControl,
-			this.form
-		);
+		const matcher = this.errorStateMatcher || this.defaultErrorMatcher;
+		return matcher.isErrorState(this.ngControl.control as FormControl, null);
 	}
 
 	get minimumControl(): FormControl {
@@ -140,7 +137,7 @@ export class NumericRangeFormFieldControlComponent
 	constructor(
 		public formService: NumericRangeFormService,
 		@Optional() @Self() public ngControl: NgControl,
-		private errorMatcher: ErrorStateMatcher,
+		private defaultErrorMatcher: ErrorStateMatcher,
 		@Optional() @Self() @Inject(NG_VALIDATORS) validators: any[]
 	) {
 		if (ngControl !== null) {
