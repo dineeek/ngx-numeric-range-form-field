@@ -5,3 +5,7 @@ Initial publish.
 ### 1.0.1
 
 Refactored code. Removed unnecessary things.
+
+### 1.0.2
+
+Tests
