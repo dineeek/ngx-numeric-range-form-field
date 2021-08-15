@@ -5,10 +5,10 @@ import { numericRangeValues } from './numeric-range.validator';
 
 @Injectable()
 export class NumericRangeFormService {
-	private formGroup!: FormGroup;
+	private form: FormGroup;
 
 	constructor() {
-		this.formGroup = new FormGroup(
+		this.form = new FormGroup(
 			{
 				minimum: new FormControl(null),
 				maximum: new FormControl(null)
@@ -18,24 +18,24 @@ export class NumericRangeFormService {
 	}
 
 	get minimumControl(): FormControl {
-		return this.formGroup.get('minimum') as FormControl;
+		return this.form.get('minimum') as FormControl;
 	}
 
 	get maximumControl(): FormControl {
-		return this.formGroup.get('maximum') as FormControl;
+		return this.form.get('maximum') as FormControl;
 	}
 
-	get fieldFormGroup(): FormGroup {
-		return this.formGroup;
+	get formGroup(): FormGroup {
+		return this.form;
 	}
 
 	public setValue(value: INumericRange, emitEvent?: boolean): void {
-		this.formGroup.setValue(value, {
+		this.form.setValue(value, {
 			emitEvent
 		});
 	}
 
 	public reset(): void {
-		this.formGroup.reset();
+		this.form.reset();
 	}
 }

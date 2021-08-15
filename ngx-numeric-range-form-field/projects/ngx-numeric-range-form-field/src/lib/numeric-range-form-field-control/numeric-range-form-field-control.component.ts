@@ -2,13 +2,13 @@ import {
 	Component,
 	EventEmitter,
 	HostBinding,
-	Inject,
 	Input,
 	OnDestroy,
 	OnInit,
 	Optional,
 	Output,
-	Self
+	Self,
+	SkipSelf
 } from '@angular/core';
 import {
 	AbstractControl,
@@ -16,16 +16,12 @@ import {
 	FormControl,
 	FormGroup,
 	NgControl,
-	NG_VALIDATORS,
 	Validator
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {
-	MatFormFieldAppearance,
-	MatFormFieldControl
-} from '@angular/material/form-field';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { NumericRangeFormService } from './form/numeric-range-form.service';
 import { NumericRangeStateMatcher } from './form/numeric-range-state-matcher';
 import { INumericRange } from './model/numeric-range-field.model';
@@ -52,6 +48,19 @@ export class NumericRangeFormFieldControlComponent
 		MatFormFieldControl<INumericRange>,
 		ControlValueAccessor,
 		Validator {
+	static nextId = 0;
+
+	@Input()
+	set value(value: INumericRange) {
+		this.formGroup.patchValue(value);
+		this.stateChanges.next();
+	}
+
+	@Input() set placeholder(value: string) {
+		this._placeholder = value;
+		this.stateChanges.next();
+	}
+
 	@Input() minPlaceholder: string;
 	@Input() maxPlaceholder: string;
 	@Input() readonly = false;
@@ -60,45 +69,28 @@ export class NumericRangeFormFieldControlComponent
 	@Output() enterPressed = new EventEmitter<void>();
 	@Output() numericRangeChanged = new EventEmitter<INumericRange>();
 
-	@Input()
-	set value(val: INumericRange) {
-		this.form.patchValue(val);
-		this.stateChanges.next();
-	}
-	@Input() set placeholder(value: string) {
-		this._placeholder = value;
-		this.stateChanges.next();
-	}
-	@Input() set appearance(value: MatFormFieldAppearance) {
-		this._appearance = value;
-		this.stateChanges.next();
-	}
 	@Input() required: boolean;
 	@Input() disabled: boolean;
 	@Input() errorStateMatcher: ErrorStateMatcher;
 	@Input() autofilled?: boolean;
-
-	@HostBinding('attr.aria-describedby')
-	userAriaDescribedBy = '';
 
 	@HostBinding('class.floated')
 	get shouldLabelFloat(): boolean {
 		return true;
 	}
 
+	@HostBinding('attr.aria-describedby')
+	userAriaDescribedBy = '';
+
 	@HostBinding()
 	id = `numeric-range-form-control-id-${NumericRangeFormFieldControlComponent.nextId++}`;
 
 	get value() {
-		return this.form.value;
+		return this.formGroup.value;
 	}
 
 	get placeholder(): string {
 		return this._placeholder;
-	}
-
-	get appearance(): MatFormFieldAppearance {
-		return this._appearance;
 	}
 
 	get empty(): boolean {
@@ -108,7 +100,7 @@ export class NumericRangeFormFieldControlComponent
 	get errorState() {
 		return this.numericRangeErrorMatcher.isErrorState(
 			this.ngControl.control as FormControl,
-			this.form
+			this.formGroup
 		);
 	}
 
@@ -120,41 +112,39 @@ export class NumericRangeFormFieldControlComponent
 		return this.formService.maximumControl;
 	}
 
-	form: FormGroup = this.formService.fieldFormGroup;
+	formGroup: FormGroup;
 
 	stateChanges = new Subject<void>();
 
 	focused = false;
 
-	controlType = 'custom-vehicle-code-control';
+	controlType = 'numeric-range-form-control';
 
-	static nextId = 0;
+	numericRangeErrorMatcher = new NumericRangeStateMatcher();
 
 	private unsubscribe$ = new Subject<void>();
 
 	private _placeholder: string;
 
-	private _appearance: MatFormFieldAppearance = 'standard';
-
 	onChange: (value: INumericRange) => void;
 	onTouch: () => void;
 
-	numericRangeErrorMatcher = new NumericRangeStateMatcher();
-
 	constructor(
-		public formService: NumericRangeFormService,
-		@Optional() @Self() public ngControl: NgControl
+		@Optional() @Self() public ngControl: NgControl,
+		@SkipSelf() private formService: NumericRangeFormService
 	) {
 		if (ngControl !== null) {
 			this.ngControl.valueAccessor = this;
 		}
+
+		this.formGroup = formService.formGroup;
 	}
 
 	ngOnInit(): void {
 		const validator = this.ngControl.control.validator;
 		this.minimumControl.setValidators(validator);
 		this.maximumControl.setValidators(validator);
-		this.form.updateValueAndValidity();
+		this.formGroup.updateValueAndValidity();
 		this.ngControl.control.setValidators(this.validate.bind(this));
 	}
 
@@ -165,7 +155,9 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	registerOnChange(fn: any): void {
-		this.form.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(fn);
+		this.formGroup.valueChanges
+			.pipe(takeUntil(this.unsubscribe$))
+			.subscribe(fn);
 	}
 
 	registerOnTouched(fn: any): void {
@@ -175,9 +167,9 @@ export class NumericRangeFormFieldControlComponent
 	setDisabledState?(isDisabled: boolean): void {
 		this.disabled = isDisabled;
 		if (isDisabled) {
-			this.form.disable();
+			this.formGroup.disable();
 		} else {
-			this.form.enable();
+			this.formGroup.enable();
 		}
 		this.stateChanges.next();
 	}
@@ -189,7 +181,7 @@ export class NumericRangeFormFieldControlComponent
 	onContainerClick(event: MouseEvent): void {}
 
 	validate(control: AbstractControl) {
-		if (this.form.valid) {
+		if (this.formGroup.valid) {
 			return null;
 		}
 
@@ -202,7 +194,7 @@ export class NumericRangeFormFieldControlComponent
 
 	addControlErrors(allErrors: any, controlName: string) {
 		const errors = { ...allErrors };
-		const controlErrors = this.form.controls[controlName].errors;
+		const controlErrors = this.formGroup.controls[controlName].errors;
 		if (controlErrors) {
 			errors[controlName] = controlErrors;
 		}
@@ -211,7 +203,7 @@ export class NumericRangeFormFieldControlComponent
 
 	onEnterPressed(): void {
 		if (
-			!this.form.errors &&
+			!this.formGroup.errors &&
 			!this.minimumControl.errors &&
 			!this.maximumControl.errors
 		) {
@@ -224,9 +216,11 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	onRangeValuesChanged(): void {
-		this.form.errors || this.minimumControl.errors || this.maximumControl.errors
+		this.formGroup.errors ||
+		this.minimumControl.errors ||
+		this.maximumControl.errors
 			? this.numericRangeChanged.emit(null)
-			: this.numericRangeChanged.emit(this.form.value);
+			: this.numericRangeChanged.emit(this.formGroup.value);
 	}
 
 	onReset(): void {

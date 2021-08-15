@@ -1,6 +1,6 @@
 {
 	"name": "ngx-numeric-range-form-field",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"peerDependencies": {
 		"@angular/common": "^11.1.2",
 		"@angular/core": "^11.1.2"
@@ -21,10 +21,18 @@
 	},
 	"description": "Custom numeric range input form field",
 	"keywords": [
-		"form field",
+		"ng",
+		"angular",
+		"numeric range form field",
 		"numeric",
 		"range",
 		"number",
+		"number range",
+		"angular range",
+		"input range",
+		"angular input range",
+		"form",
+		"field",
 		"mat form field",
 		"custom control",
 		"cva",

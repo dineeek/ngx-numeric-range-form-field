@@ -3,6 +3,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	EventEmitter,
+	Host,
 	Inject,
 	Input,
 	OnDestroy,
@@ -51,7 +52,7 @@ export class NumericRangeFormFieldContainerComponent
 	@Output() enterPressed = new EventEmitter<void>();
 	@Output() numericRangeChanged = new EventEmitter<INumericRange>();
 
-	formGroup: FormGroup = this.formService.fieldFormGroup;
+	formGroup: FormGroup = this.formService.formGroup;
 	control: FormControl;
 	disabled: boolean;
 
@@ -71,11 +72,12 @@ export class NumericRangeFormFieldContainerComponent
 	constructor(
 		@Self() public controlDirective: NgControl,
 		@Optional() @Self() @Inject(NG_VALIDATORS) validators: any[],
-		private formService: NumericRangeFormService,
+		@Host() private formService: NumericRangeFormService,
 		private readonly changeDetectorRef: ChangeDetectorRef
 	) {
 		this.controlDirective.valueAccessor = this;
 		this.control = new FormControl();
+		this.formGroup = this.formService.formGroup;
 	}
 
 	ngOnInit(): void {

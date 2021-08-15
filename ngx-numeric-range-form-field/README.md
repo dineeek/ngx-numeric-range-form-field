@@ -1,27 +1,110 @@
-# NgxNumericRangeFormField
+# ngx-numeric-range-form-field
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.4.
+An Angular Material UI numeric range input form field. It is based on custom form field control and control value accessor which allows inserting minimum number and maximum number of some range.
 
-## Development server
+![Numeric range form field](https://github.com/dineeek/ngx-numeric-range-form-field/blob/main/ngx-numeric-range-form-field/Numeric%20Range%20Form%20Field.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+<p align="start">
+    <a href="https://www.npmjs.com/package/ngx-numeric-range-form-field"><img alt="weekly downloads from npm" src="https://img.shields.io/npm/dw/ngx-numeric-range-form-field.svg?style=flat-square"></a>
+    <a href="https://www.npmjs.com/package/ngx-numeric-range-form-field"><img alt="npm version" src="https://img.shields.io/npm/v/ngx-numeric-range-form-field.svg?style=flat-square"></a>
+</p>
 
-## Code scaffolding
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdineeek%2Fngx-numeric-range-form-field.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdineeek%2Fngx-numeric-range-form-field?ref=badge_shield)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Feature
 
-## Build
+- Two inputs as one field.
+- Auto range validation.
+- Supports to work with reactive forms
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+**[View live demo on StackBlitz.](https://ngx-numeric-range-form-field.stackblitz.io)**
 
-## Running unit tests
+# Install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```shell
+npm install ngx-numeric-range-form-field
+```
 
-## Running end-to-end tests
+# Usage
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+In component HTML:
 
-## Further help
+```html
+<ngx-numeric-range-form-field-container
+	[formControl]="rangeControl"
+	label="Numeric range"
+	(blurred)="onBlur()"
+	(enterPressed)="onEnter()"
+	(numericRangeChanged)="onValueChange($event)"
+></ngx-numeric-range-form-field-container>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+In component.ts:
+
+```typescript
+form: FormGroup;
+
+	constructor() {
+		this.form = new FormGroup({
+			range: new FormControl(null, [
+				Validators.required, //optional
+				Validators.min(10), //optional
+				Validators.max(100), //optional
+			]),
+		});
+	}
+
+	get rangeControl(): FormControl {
+		return this.form.get('range') as FormControl;
+	}
+
+	onBlur(): void {
+		console.log('Value', this.rangeControl.value);
+	}
+
+	onEnter(): void {
+		console.log('Enter pressed!');
+	}
+
+	onValueChange(value: INumericRange): void {
+		console.log('Changed value: ', value);
+	}
+```
+
+Customizable input and output decorators:
+
+```typescript
+@Input() label: string; // Label of the control
+@Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'outline';
+@Input() floatLabel: 'always' | 'never' | 'auto' = 'always';
+@Input() minPlaceholder = 'From'; // Placeholder of the minimum value control
+@Input() maxPlaceholder = 'To'; // Placeholder of the maximum value control
+@Input() readonly = false; // Indicator wether the both controls are readonly
+@Input() resettable = true; // Indicator wether the both controls are resettable
+@Input() required: boolean; // Required validation
+@Input() requiredErrorMessage = 'Field is required!'; // Customizable error message when field is required
+@Input() minimumErrorMessage = 'Minimum has been reached!'; // Customizable error message when field has min validation
+@Input() maximumErrorMessage = 'Maximum has exceeded!'; // Customizable error message when field has max validation
+@Input() invalidRangeErrorMessage = 'Inserted range is not valid!'; // Customizable error message when field has invalid numeric range
+
+@Output() blurred = new EventEmitter<void>(); // Event which emits where user leaves control (focus out)
+@Output() enterPressed = new EventEmitter<void>(); // Event which emits when enter is pressed
+@Output() numericRangeChanged = new EventEmitter<INumericRange>(); // Event which emits when one of range value is changed
+```
+
+It is based on following interface:
+
+```typescript
+export interface INumericRange {
+	minimum: number;
+	maximum: number;
+}
+```
+
+# License
+
+Apache License
+
+Copyright (c) 2021 Dino Klicek
