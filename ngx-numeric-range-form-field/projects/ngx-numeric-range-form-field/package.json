@@ -1,38 +1,38 @@
 {
-  "name": "ngx-numeric-range-form-field",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^11.1.2",
-    "@angular/core": "^11.1.2"
-  },
-  "dependencies": {
-    "tslib": "^2.0.0"
-  },
-  "author": {
-    "name": "Dino Klicek",
-    "email": "dineeek@gmail.com"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dineeek/ngx-numeric-range-form-field"
-  },
-  "description": "Custom numeric range input form field",
-  "keywords": [
-    "form field",
-    "numeric",
-    "range",
-    "number",
-    "mat form field",
-    "custom control",
-    "cva",
-    "library"
-  ],
-  "license": "Apache",
-  "homepage": "https://github.com/dineeek/ngx-numeric-range-form-field/blob/main/README.md",
-  "bugs": {
-    "url": "https://github.com/dineeek/ngx-numeric-range-form-field/issues"
-  }
+	"name": "ngx-numeric-range-form-field",
+	"version": "0.0.2",
+	"peerDependencies": {
+		"@angular/common": "^11.1.2",
+		"@angular/core": "^11.1.2"
+	},
+	"dependencies": {
+		"tslib": "^2.0.0"
+	},
+	"author": {
+		"name": "Dino Klicek",
+		"email": "dineeek@gmail.com"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dineeek/ngx-numeric-range-form-field"
+	},
+	"description": "Custom numeric range input form field",
+	"keywords": [
+		"form field",
+		"numeric",
+		"range",
+		"number",
+		"mat form field",
+		"custom control",
+		"cva",
+		"library"
+	],
+	"license": "Apache",
+	"homepage": "https://github.com/dineeek/ngx-numeric-range-form-field/blob/main/README.md",
+	"bugs": {
+		"url": "https://github.com/dineeek/ngx-numeric-range-form-field/issues"
+	}
 }

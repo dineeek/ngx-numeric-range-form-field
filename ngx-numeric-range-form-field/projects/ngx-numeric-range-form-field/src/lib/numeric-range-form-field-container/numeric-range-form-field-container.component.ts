@@ -2,7 +2,6 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	DoCheck,
 	EventEmitter,
 	Inject,
 	Input,
@@ -22,7 +21,7 @@ import {
 	Validator
 } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { NumericRangeFormService } from '../numeric-range-form-field-control/form/numeric-range-form.service';
 import { INumericRange } from '../numeric-range-form-field-control/model/numeric-range-field.model';
 
