@@ -142,9 +142,7 @@ export class NumericRangeFormFieldControlComponent
 
 	constructor(
 		public formService: NumericRangeFormService,
-		@Optional() @Self() public ngControl: NgControl,
-		private defaultErrorMatcher: ErrorStateMatcher,
-		@Optional() @Self() @Inject(NG_VALIDATORS) validators: any[]
+		@Optional() @Self() public ngControl: NgControl
 	) {
 		if (ngControl !== null) {
 			this.ngControl.valueAccessor = this;

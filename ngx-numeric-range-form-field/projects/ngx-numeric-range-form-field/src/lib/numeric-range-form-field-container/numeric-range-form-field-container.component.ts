@@ -42,6 +42,7 @@ export class NumericRangeFormFieldContainerComponent
 	@Input() maxPlaceholder = 'To';
 	@Input() readonly = false;
 	@Input() resettable = true;
+	@Input() required: boolean;
 	@Input() requiredErrorMessage = 'Field is required!';
 	@Input() minimumErrorMessage = 'Minimum has been reached!';
 	@Input() maximumErrorMessage = 'Maximum has exceeded!';

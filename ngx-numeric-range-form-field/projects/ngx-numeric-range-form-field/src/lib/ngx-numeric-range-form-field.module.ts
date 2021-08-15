@@ -8,20 +8,17 @@ import { NumericRangeFormFieldContainerComponent } from './numeric-range-form-fi
 import { NumericRangeFormFieldControlComponent } from './numeric-range-form-field-control/numeric-range-form-field-control.component';
 
 @NgModule({
-  declarations: [
-    NumericRangeFormFieldContainerComponent,
-    NumericRangeFormFieldControlComponent,
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-  ],
-  exports: [
-    NumericRangeFormFieldContainerComponent,
-    NumericRangeFormFieldControlComponent,
-  ],
+	declarations: [
+		NumericRangeFormFieldContainerComponent,
+		NumericRangeFormFieldControlComponent
+	],
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatIconModule
+	],
+	exports: [NumericRangeFormFieldContainerComponent]
 })
 export class NgxNumericRangeFormFieldModule {}
