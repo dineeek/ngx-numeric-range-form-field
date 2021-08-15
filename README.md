@@ -17,7 +17,7 @@ An Angular Material UI numeric range input form field. It is based on custom for
 
 - Two inputs as one field.
 - Auto range validation.
-- Supports to work with reactive forms
+- Supports reactive forms.
 
 **[View live demo on StackBlitz.](https://ngx-numeric-range-form-field.stackblitz.io)**
 
