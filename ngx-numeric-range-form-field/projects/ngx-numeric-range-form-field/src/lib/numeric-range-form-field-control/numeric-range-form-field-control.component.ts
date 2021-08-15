@@ -106,8 +106,12 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	get errorState() {
-		const matcher = this.errorStateMatcher || this.errorMatcher;
-		return matcher.isErrorState(this.ngControl.control as FormControl, null);
+		//const matcher = this.errorStateMatcher || this.errorMatcher;
+		const matcher = new NumericRangeStateMatcher();
+		return matcher.isErrorState(
+			this.ngControl.control as FormControl,
+			this.form
+		);
 	}
 
 	get minimumControl(): FormControl {

@@ -16,7 +16,18 @@
 		(numericRangeChanged)="onRangeValuesChanged($event)"
 	></ngx-numeric-range-form-field-control>
 
-	<mat-icon *ngIf="resettable && !readonly" matSuffix>close </mat-icon>
+	<mat-icon
+		(click)="onReset()"
+		*ngIf="
+			resettable &&
+			!readonly &&
+			(minimumControl.value || maximumControl.value) &&
+			!formGroup.disabled
+		"
+		id="resetIcon"
+		matSuffix
+		>close
+	</mat-icon>
 
 	<mat-error
 		*ngIf="

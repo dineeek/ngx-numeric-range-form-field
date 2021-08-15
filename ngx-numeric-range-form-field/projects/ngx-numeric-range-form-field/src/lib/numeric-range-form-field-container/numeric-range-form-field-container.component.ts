@@ -126,6 +126,10 @@ export class NumericRangeFormFieldContainerComponent
 		this.numericRangeChanged.emit(value);
 	}
 
+	onReset(): void {
+		this.formService.reset();
+	}
+
 	ngOnDestroy(): void {
 		this.unsubscribe$.next();
 		this.unsubscribe$.complete();
