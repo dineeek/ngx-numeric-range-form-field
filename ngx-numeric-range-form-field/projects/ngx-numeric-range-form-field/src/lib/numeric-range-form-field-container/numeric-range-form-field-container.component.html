@@ -1,6 +1,6 @@
 <mat-form-field
-	appearance="outline"
-	floatLabel="always"
+	[appearance]="appearance"
+	[floatLabel]="floatLabel"
 	class="numeric-range-field"
 >
 	<mat-label>{{ label }}</mat-label>
@@ -24,7 +24,7 @@
 			(minimumControl.value || maximumControl.value) &&
 			!formGroup.disabled
 		"
-		id="resetIcon"
+		color="primary"
 		matSuffix
 		>close
 	</mat-icon>
@@ -34,22 +34,22 @@
 			minimumControl.hasError('required') || maximumControl.hasError('required')
 		"
 	>
-		Required field!
+		{{ requiredErrorMessage }}
 	</mat-error>
 
 	<mat-error
 		*ngIf="minimumControl.hasError('min') || maximumControl.hasError('min')"
 	>
-		Minimum has been reached!
+		{{ minimumErrorMessage }}
 	</mat-error>
 
 	<mat-error
 		*ngIf="minimumControl.hasError('max') || maximumControl.hasError('max')"
 	>
-		Maximum has exceeded!
+		{{ maximumErrorMessage }}
 	</mat-error>
 
 	<mat-error *ngIf="formGroup.hasError('notValidRange')">
-		Not valid range!
+		{{ invalidRangeErrorMessage }}
 	</mat-error>
 </mat-form-field>

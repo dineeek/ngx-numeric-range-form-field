@@ -120,7 +120,9 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	stateChanges = new Subject<void>();
+
 	focused = false;
+
 	controlType = 'custom-vehicle-code-control';
 
 	static nextId = 0;

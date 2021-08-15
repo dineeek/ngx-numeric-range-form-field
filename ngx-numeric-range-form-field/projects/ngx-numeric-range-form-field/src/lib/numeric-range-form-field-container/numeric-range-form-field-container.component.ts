@@ -36,10 +36,16 @@ import { INumericRange } from '../numeric-range-form-field-control/model/numeric
 export class NumericRangeFormFieldContainerComponent
 	implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 	@Input() label: string;
+	@Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'outline';
+	@Input() floatLabel: 'always' | 'never' | 'auto' = 'always';
 	@Input() minPlaceholder = 'From';
 	@Input() maxPlaceholder = 'To';
 	@Input() readonly = false;
 	@Input() resettable = true;
+	@Input() requiredErrorMessage = 'Field is required!';
+	@Input() minimumErrorMessage = 'Minimum has been reached!';
+	@Input() maximumErrorMessage = 'Maximum has exceeded!';
+	@Input() invalidRangeErrorMessage = 'Inserted range is not valid!';
 
 	@Output() blurred = new EventEmitter<void>();
 	@Output() enterPressed = new EventEmitter<void>();
