@@ -2,7 +2,7 @@
 
 An Angular Material UI numeric range input form field. It is based on custom form field control and control value accessor and allows inserting minimum and maximum number of range.
 
-![Numeric range form field]()
+![Numeric range form field](https://github.com/dineeek/ngx-numeric-range-form-field/blob/main/ngx-numeric-range-form-field/Numeric%20Range%20Form%20Field.png)
 
 <p align="start">
     <a href="https://www.npmjs.com/package/ngx-numeric-range-form-field"><img alt="weekly downloads from npm" src="https://img.shields.io/npm/dw/ngx-numeric-range-form-field.svg?style=flat-square"></a>
