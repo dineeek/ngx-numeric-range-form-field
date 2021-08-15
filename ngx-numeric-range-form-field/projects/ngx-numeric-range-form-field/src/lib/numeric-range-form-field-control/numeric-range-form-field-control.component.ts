@@ -52,7 +52,6 @@ export class NumericRangeFormFieldControlComponent
 		MatFormFieldControl<INumericRange>,
 		ControlValueAccessor,
 		Validator {
-	@Input() form: FormGroup;
 	@Input() minPlaceholder: string;
 	@Input() maxPlaceholder: string;
 	@Input() readonly = false;
@@ -121,6 +120,8 @@ export class NumericRangeFormFieldControlComponent
 		return this.formService.maximumControl;
 	}
 
+	form: FormGroup = this.formService.fieldFormGroup;
+
 	stateChanges = new Subject<void>();
 
 	focused = false;
@@ -159,10 +160,8 @@ export class NumericRangeFormFieldControlComponent
 
 	writeValue(value: INumericRange): void {
 		value === null
-			? this.form.reset()
-			: this.form.patchValue(value, {
-					emitEvent: false
-			  });
+			? this.formService.reset()
+			: this.formService.setValue(value, false);
 	}
 
 	registerOnChange(fn: any): void {

@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-	FormGroup,
-	FormBuilder,
-	FormControl,
-	ValidatorFn
-} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { INumericRange } from '../model/numeric-range-field.model';
 import { numericRangeValues } from './numeric-range.validator';
 
