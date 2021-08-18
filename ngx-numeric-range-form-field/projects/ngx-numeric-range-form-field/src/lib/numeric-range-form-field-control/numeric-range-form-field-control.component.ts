@@ -223,10 +223,6 @@ export class NumericRangeFormFieldControlComponent
 			: this.numericRangeChanged.emit(this.formGroup.value);
 	}
 
-	onReset(): void {
-		this.formService.reset();
-	}
-
 	ngOnDestroy(): void {
 		this.stateChanges.complete();
 		this.unsubscribe$.next();

@@ -12,18 +12,27 @@ export class NumericRangeStateMatcher implements ErrorStateMatcher {
 		form: FormGroup | FormGroupDirective | NgForm | null
 	): boolean {
 		if (!control.parent && form instanceof FormGroup) {
+			const minimumControl = form.get('minimum') as FormControl;
+			const maximumControl = form.get('maximum') as FormControl;
+
 			const isFormInvalid =
 				form.touched &&
-				form.get('minimum').dirty &&
-				form.get('maximum').dirty &&
+				minimumControl.dirty &&
+				maximumControl.dirty &&
 				form.invalid;
 
 			const areFormControlsInvalid =
-				form.get('minimum').invalid || form.get('maximum').invalid;
+				this.isControlTouchedInvalid(minimumControl) ||
+				this.isControlTouchedInvalid(maximumControl);
 
+			form.updateValueAndValidity();
 			return isFormInvalid || areFormControlsInvalid;
 		}
 
 		return control.touched && control.dirty && control.invalid;
+	}
+
+	private isControlTouchedInvalid(control: FormControl): boolean {
+		return control.touched && control.invalid;
 	}
 }
