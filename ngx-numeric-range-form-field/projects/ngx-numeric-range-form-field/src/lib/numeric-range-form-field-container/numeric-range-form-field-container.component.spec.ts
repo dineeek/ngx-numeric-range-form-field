@@ -8,7 +8,9 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { numericRangeValues } from 'dist/ngx-numeric-range-form-field/lib/numeric-range-form-field-control/form/numeric-range.validator';
 import { NumericRangeFormService } from '../numeric-range-form-field-control/form/numeric-range-form.service';
+import { NumericRangeStateMatcher } from '../numeric-range-form-field-control/form/numeric-range-state-matcher';
 import { INumericRange } from '../numeric-range-form-field-control/model/numeric-range-field.model';
 import { NumericRangeFormFieldControlComponent } from '../numeric-range-form-field-control/numeric-range-form-field-control.component';
 
@@ -173,6 +175,7 @@ describe('NumericRangeFormFieldContainerComponent', () => {
 			minimum: 8,
 			maximum: 10
 		});
+		expect(numericRangeControlComponent.errorState).toBeFalse();
 	});
 
 	it('should emit null if error happens on changed range values', () => {
@@ -185,7 +188,7 @@ describe('NumericRangeFormFieldContainerComponent', () => {
 
 		numericRangeControlComponent.minimumControl.setValue(8);
 		numericRangeControlComponent.maximumControl.setValue(6);
-		numericRangeControlComponent.minimumControl.updateValueAndValidity();
+		numericRangeControlComponent.formGroup.updateValueAndValidity();
 
 		numericRangeControlComponent.onRangeValuesChanged();
 
@@ -225,5 +228,24 @@ describe('NumericRangeFormFieldContainerComponent', () => {
 
 		expect(component.numericRangeControl.disabled).toBeFalse();
 		expect(numericRangeComponent.formGroup.disabled).toBeFalse();
+	});
+
+	it('should have valid error state of the form', () => {
+		const numericRangeControlComponent = getNumericRangeControlComponent();
+
+		expect(numericRangeControlComponent.errorState).toBeFalse();
+	});
+
+	it('should have invalid error state of the form', () => {
+		const numericRangeControlComponent = getNumericRangeControlComponent();
+
+		numericRangeControlComponent.minimumControl.setValue(8);
+		numericRangeControlComponent.maximumControl.setValue(6);
+		numericRangeControlComponent.minimumControl.markAsTouched();
+		numericRangeControlComponent.minimumControl.markAsDirty();
+		numericRangeControlComponent.maximumControl.markAsDirty();
+		numericRangeControlComponent.formGroup.updateValueAndValidity();
+
+		expect(numericRangeControlComponent.errorState).toBeTrue();
 	});
 });

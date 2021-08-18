@@ -8,4 +8,4 @@ Refactored code. Removed unnecessary things.
 
 ### 1.0.2
 
-Tests
+Fixed validation bugs and added tests
