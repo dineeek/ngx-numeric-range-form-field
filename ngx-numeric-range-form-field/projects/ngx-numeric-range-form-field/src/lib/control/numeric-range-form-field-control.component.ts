@@ -201,7 +201,8 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	onRangeValuesChanged(): void {
-		(this.formGroup.errors && this.minimumControl.errors) ||
+		this.formGroup.errors ||
+		this.minimumControl.errors ||
 		this.maximumControl.errors
 			? this.numericRangeChanged.emit(null)
 			: this.numericRangeChanged.emit(this.formGroup.value);
