@@ -24,8 +24,8 @@ import {
 } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NumericRangeFormService } from '../numeric-range-form-field-control/form/numeric-range-form.service';
-import { INumericRange } from '../numeric-range-form-field-control/model/numeric-range-field.model';
+import { NumericRangeFormService } from '../form/numeric-range-form.service';
+import { INumericRange } from '../form/model/numeric-range-field.model';
 
 @Component({
 	selector: 'ngx-numeric-range-form-field-container',
@@ -81,6 +81,7 @@ export class NumericRangeFormFieldContainerComponent
 		this.control.setValidators(validator);
 		this.control.updateValueAndValidity();
 		this.controlDirective.control.setValidators(this.validate.bind(this));
+
 		this.changeDetectorRef.detectChanges();
 	}
 

@@ -23,9 +23,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NumericRangeFormService } from './form/numeric-range-form.service';
-import { NumericRangeStateMatcher } from './form/numeric-range-state-matcher';
-import { INumericRange } from './model/numeric-range-field.model';
+import { NumericRangeFormService } from '../form/numeric-range-form.service';
+import { NumericRangeStateMatcher } from '../form/numeric-range-state-matcher';
+import { INumericRange } from '../form/model/numeric-range-field.model';
 
 @Component({
 	selector: 'ngx-numeric-range-form-field-control',

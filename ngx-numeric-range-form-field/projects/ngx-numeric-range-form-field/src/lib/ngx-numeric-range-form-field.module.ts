@@ -4,8 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { NumericRangeFormFieldContainerComponent } from './numeric-range-form-field-container/numeric-range-form-field-container.component';
-import { NumericRangeFormFieldControlComponent } from './numeric-range-form-field-control/numeric-range-form-field-control.component';
+import { NumericRangeFormFieldContainerComponent } from './container/numeric-range-form-field-container.component';
+import { NumericRangeFormFieldControlComponent } from './control/numeric-range-form-field-control.component';
 
 @NgModule({
 	declarations: [
@@ -19,7 +19,7 @@ import { NumericRangeFormFieldControlComponent } from './numeric-range-form-fiel
 		MatInputModule,
 		MatIconModule
 	],
-	providers:[],
+	providers: [],
 	exports: [NumericRangeFormFieldContainerComponent]
 })
 export class NgxNumericRangeFormFieldModule {}

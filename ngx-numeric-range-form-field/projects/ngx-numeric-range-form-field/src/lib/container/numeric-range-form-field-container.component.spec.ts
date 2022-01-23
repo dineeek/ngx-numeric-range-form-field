@@ -9,10 +9,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { numericRangeValues } from 'dist/ngx-numeric-range-form-field/lib/numeric-range-form-field-control/form/numeric-range.validator';
-import { NumericRangeFormService } from '../numeric-range-form-field-control/form/numeric-range-form.service';
-import { NumericRangeStateMatcher } from '../numeric-range-form-field-control/form/numeric-range-state-matcher';
-import { INumericRange } from '../numeric-range-form-field-control/model/numeric-range-field.model';
-import { NumericRangeFormFieldControlComponent } from '../numeric-range-form-field-control/numeric-range-form-field-control.component';
+import { NumericRangeFormService } from '../form/numeric-range-form.service';
+import { NumericRangeStateMatcher } from '../form/numeric-range-state-matcher';
+import { INumericRange } from '../form/model/numeric-range-field.model';
+import { NumericRangeFormFieldControlComponent } from '../control/numeric-range-form-field-control.component';
 
 import { NumericRangeFormFieldContainerComponent } from './numeric-range-form-field-container.component';
 
