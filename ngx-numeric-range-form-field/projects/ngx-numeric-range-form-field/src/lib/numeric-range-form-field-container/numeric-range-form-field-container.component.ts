@@ -21,6 +21,10 @@ import {
 	NG_VALIDATORS,
 	Validator
 } from '@angular/forms';
+import {
+	FloatLabelType,
+	MatFormFieldAppearance
+} from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NumericRangeFormService } from '../numeric-range-form-field-control/form/numeric-range-form.service';
@@ -36,8 +40,8 @@ import { INumericRange } from '../numeric-range-form-field-control/model/numeric
 export class NumericRangeFormFieldContainerComponent
 	implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 	@Input() label: string;
-	@Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'outline';
-	@Input() floatLabel: 'always' | 'never' | 'auto' = 'always';
+	@Input() appearance: MatFormFieldAppearance = 'outline';
+	@Input() floatLabel: FloatLabelType = 'always';
 	@Input() minPlaceholder = 'From';
 	@Input() maxPlaceholder = 'To';
 	@Input() readonly = false;
@@ -53,12 +57,10 @@ export class NumericRangeFormFieldContainerComponent
 	@Output() numericRangeChanged = new EventEmitter<INumericRange>();
 
 	formGroup: FormGroup = this.formService.formGroup;
-	control: FormControl;
-	disabled: boolean;
+	control = new FormControl();
 
 	private unsubscribe$ = new Subject();
 
-	onChange = () => {};
 	onTouched = () => {};
 
 	get minimumControl(): FormControl {
@@ -71,13 +73,10 @@ export class NumericRangeFormFieldContainerComponent
 
 	constructor(
 		@Self() public controlDirective: NgControl,
-		@Optional() @Self() @Inject(NG_VALIDATORS) validators: any[],
 		@Host() private formService: NumericRangeFormService,
 		private readonly changeDetectorRef: ChangeDetectorRef
 	) {
 		this.controlDirective.valueAccessor = this;
-		this.control = new FormControl();
-		this.formGroup = this.formService.formGroup;
 	}
 
 	ngOnInit(): void {
@@ -105,13 +104,7 @@ export class NumericRangeFormFieldContainerComponent
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this.disabled = isDisabled;
-
-		if (isDisabled) {
-			this.control.disable();
-		} else {
-			this.control.enable();
-		}
+		isDisabled ? this.control.disable() : this.control.enable();
 	}
 
 	validate(control: AbstractControl) {
@@ -127,6 +120,7 @@ export class NumericRangeFormFieldContainerComponent
 	}
 
 	onBlur(): void {
+		this.onTouched();
 		this.blurred.emit();
 	}
 
