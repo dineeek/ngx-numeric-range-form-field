@@ -87,7 +87,7 @@ export class NumericRangeFormFieldContainerComponent
 		this.changeDetectorRef.detectChanges();
 	}
 
-	writeValue(value: any): void {
+	writeValue(value: INumericRange): void {
 		value === null
 			? this.control.reset()
 			: this.control.patchValue(value, {

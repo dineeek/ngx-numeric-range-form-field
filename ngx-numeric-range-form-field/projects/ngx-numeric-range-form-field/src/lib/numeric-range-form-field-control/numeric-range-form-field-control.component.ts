@@ -126,8 +126,7 @@ export class NumericRangeFormFieldControlComponent
 
 	private _placeholder: string;
 
-	onChange: (value: INumericRange) => void;
-	onTouch: () => void;
+	onTouched: () => void;
 
 	constructor(
 		@Optional() @Self() public ngControl: NgControl,
@@ -161,16 +160,12 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	registerOnTouched(fn: any): void {
-		this.onTouch = fn;
+		this.onTouched = fn;
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
 		this.disabled = isDisabled;
-		if (isDisabled) {
-			this.formGroup.disable();
-		} else {
-			this.formGroup.enable();
-		}
+		isDisabled ? this.formGroup.disable() : this.formGroup.enable();
 		this.stateChanges.next();
 	}
 
