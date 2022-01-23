@@ -28,14 +28,4 @@ export class NumericRangeFormService {
 	get formGroup(): FormGroup {
 		return this.form;
 	}
-
-	public setValue(value: INumericRange, emitEvent?: boolean): void {
-		this.form.setValue(value, {
-			emitEvent
-		});
-	}
-
-	public reset(): void {
-		this.form.reset();
-	}
 }

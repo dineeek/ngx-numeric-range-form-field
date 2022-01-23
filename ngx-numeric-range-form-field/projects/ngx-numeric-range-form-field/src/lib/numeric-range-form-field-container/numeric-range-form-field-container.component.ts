@@ -4,11 +4,9 @@ import {
 	Component,
 	EventEmitter,
 	Host,
-	Inject,
 	Input,
 	OnDestroy,
 	OnInit,
-	Optional,
 	Output,
 	Self
 } from '@angular/core';
@@ -18,7 +16,6 @@ import {
 	FormControl,
 	FormGroup,
 	NgControl,
-	NG_VALIDATORS,
 	Validator
 } from '@angular/forms';
 import {
@@ -90,7 +87,7 @@ export class NumericRangeFormFieldContainerComponent
 	writeValue(value: INumericRange): void {
 		value === null
 			? this.control.reset()
-			: this.control.patchValue(value, {
+			: this.control.setValue(value, {
 					emitEvent: false
 			  });
 	}
@@ -129,7 +126,7 @@ export class NumericRangeFormFieldContainerComponent
 	}
 
 	onReset(): void {
-		this.formService.reset();
+		this.formGroup.reset();
 	}
 
 	ngOnDestroy(): void {

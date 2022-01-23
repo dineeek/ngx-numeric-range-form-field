@@ -64,15 +64,14 @@ export class NumericRangeFormFieldControlComponent
 	@Input() minPlaceholder: string;
 	@Input() maxPlaceholder: string;
 	@Input() readonly = false;
-
-	@Output() blurred = new EventEmitter<void>();
-	@Output() enterPressed = new EventEmitter<void>();
-	@Output() numericRangeChanged = new EventEmitter<INumericRange>();
-
 	@Input() required: boolean;
 	@Input() disabled: boolean;
 	@Input() errorStateMatcher: ErrorStateMatcher;
 	@Input() autofilled?: boolean;
+
+	@Output() blurred = new EventEmitter<void>();
+	@Output() enterPressed = new EventEmitter<void>();
+	@Output() numericRangeChanged = new EventEmitter<INumericRange>();
 
 	@HostBinding('class.floated')
 	get shouldLabelFloat(): boolean {
@@ -112,7 +111,7 @@ export class NumericRangeFormFieldControlComponent
 		return this.formService.maximumControl;
 	}
 
-	formGroup: FormGroup;
+	formGroup: FormGroup = this.formService.formGroup;
 
 	stateChanges = new Subject<void>();
 
@@ -135,8 +134,6 @@ export class NumericRangeFormFieldControlComponent
 		if (ngControl !== null) {
 			this.ngControl.valueAccessor = this;
 		}
-
-		this.formGroup = formService.formGroup;
 	}
 
 	ngOnInit(): void {
@@ -149,8 +146,8 @@ export class NumericRangeFormFieldControlComponent
 
 	writeValue(value: INumericRange): void {
 		value === null
-			? this.formService.reset()
-			: this.formService.setValue(value, false);
+			? this.formGroup.reset()
+			: this.formGroup.setValue(value, { emitEvent: false });
 	}
 
 	registerOnChange(fn: any): void {
@@ -166,6 +163,7 @@ export class NumericRangeFormFieldControlComponent
 	setDisabledState?(isDisabled: boolean): void {
 		this.disabled = isDisabled;
 		isDisabled ? this.formGroup.disable() : this.formGroup.enable();
+
 		this.stateChanges.next();
 	}
 
@@ -180,20 +178,10 @@ export class NumericRangeFormFieldControlComponent
 			return null;
 		}
 
-		let errors: any = {};
-		errors = this.addControlErrors(errors, 'minimum');
-		errors = this.addControlErrors(errors, 'maximum');
-
-		return errors;
-	}
-
-	addControlErrors(allErrors: any, controlName: string) {
-		const errors = { ...allErrors };
-		const controlErrors = this.formGroup.controls[controlName].errors;
-		if (controlErrors) {
-			errors[controlName] = controlErrors;
-		}
-		return errors;
+		return {
+			...this.minimumControl.errors,
+			...this.maximumControl.errors
+		};
 	}
 
 	onEnterPressed(): void {
