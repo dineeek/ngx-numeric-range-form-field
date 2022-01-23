@@ -105,11 +105,11 @@ export class NumericRangeFormFieldContainerComponent
 	}
 
 	validate(control: AbstractControl) {
-		if (this.control.valid) {
-			return null;
-		}
-
-		return this.control.touched && this.control.dirty && this.control.errors;
+		const errors = {
+			...this.minimumControl.errors,
+			...this.maximumControl.errors
+		};
+		return Object.keys(errors).length ? errors : null;
 	}
 
 	onEnterPressed(): void {

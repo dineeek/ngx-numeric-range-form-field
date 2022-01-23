@@ -1,5 +1,6 @@
 import {
 	Component,
+	DoCheck,
 	EventEmitter,
 	HostBinding,
 	Input,
@@ -44,6 +45,7 @@ import { INumericRange } from './model/numeric-range-field.model';
 export class NumericRangeFormFieldControlComponent
 	implements
 		OnInit,
+		DoCheck,
 		OnDestroy,
 		MatFormFieldControl<INumericRange>,
 		ControlValueAccessor,
@@ -136,11 +138,17 @@ export class NumericRangeFormFieldControlComponent
 		}
 	}
 
+	ngDoCheck(): void {
+		this.formGroup.markAllAsTouched();
+	}
+
 	ngOnInit(): void {
 		const validator = this.ngControl.control.validator;
+
 		this.minimumControl.setValidators(validator);
 		this.maximumControl.setValidators(validator);
 		this.formGroup.updateValueAndValidity();
+
 		this.ngControl.control.setValidators(this.validate.bind(this));
 	}
 
@@ -174,14 +182,7 @@ export class NumericRangeFormFieldControlComponent
 	onContainerClick(event: MouseEvent): void {}
 
 	validate(control: AbstractControl) {
-		if (this.formGroup.valid) {
-			return null;
-		}
-
-		return {
-			...this.minimumControl.errors,
-			...this.maximumControl.errors
-		};
+		return control.errors;
 	}
 
 	onEnterPressed(): void {

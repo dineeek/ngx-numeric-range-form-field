@@ -15,21 +15,16 @@ export class NumericRangeStateMatcher implements ErrorStateMatcher {
 			const minimumControl = form.get('minimum') as FormControl;
 			const maximumControl = form.get('maximum') as FormControl;
 
-			const isFormInvalid =
-				form.touched &&
-				minimumControl.dirty &&
-				maximumControl.dirty &&
-				form.invalid;
+			const isFormInvalid = form.touched && form.invalid;
 
 			const areFormControlsInvalid =
 				this.isControlTouchedInvalid(minimumControl) ||
 				this.isControlTouchedInvalid(maximumControl);
 
-			form.updateValueAndValidity();
 			return isFormInvalid || areFormControlsInvalid;
 		}
 
-		return control.touched && control.dirty && control.invalid;
+		return control.touched && control.invalid;
 	}
 
 	private isControlTouchedInvalid(control: FormControl): boolean {

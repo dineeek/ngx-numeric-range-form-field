@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { INumericRange } from '../model/numeric-range-field.model';
+import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { numericRangeValues } from './numeric-range.validator';
 
 @Injectable()
@@ -10,8 +9,8 @@ export class NumericRangeFormService {
 	constructor() {
 		this.form = new FormGroup(
 			{
-				minimum: new FormControl(null),
-				maximum: new FormControl(null)
+				minimum: new FormControl(null, { updateOn: 'blur' }),
+				maximum: new FormControl(null, { updateOn: 'blur' })
 			},
 			{ validators: numericRangeValues }
 		);
