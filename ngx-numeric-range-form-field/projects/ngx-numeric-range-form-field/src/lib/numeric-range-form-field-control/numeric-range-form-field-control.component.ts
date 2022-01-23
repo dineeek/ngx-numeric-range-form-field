@@ -186,23 +186,18 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	onEnterPressed(): void {
-		if (
-			!this.formGroup.errors &&
-			!this.minimumControl.errors &&
-			!this.maximumControl.errors
-		) {
+		if (!this.minimumControl.errors && !this.maximumControl.errors) {
 			this.enterPressed.emit();
 		}
 	}
 
 	onBlur(): void {
+		this.onTouched();
 		this.blurred.emit();
 	}
 
 	onRangeValuesChanged(): void {
-		this.formGroup.errors ||
-		this.minimumControl.errors ||
-		this.maximumControl.errors
+		this.minimumControl.errors || this.maximumControl.errors
 			? this.numericRangeChanged.emit(null)
 			: this.numericRangeChanged.emit(this.formGroup.value);
 	}

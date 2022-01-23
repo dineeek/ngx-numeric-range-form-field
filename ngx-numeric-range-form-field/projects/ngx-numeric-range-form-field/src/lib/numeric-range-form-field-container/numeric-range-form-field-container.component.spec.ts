@@ -125,15 +125,6 @@ describe('NumericRangeFormFieldContainerComponent', () => {
 		expect(getMaxRangeField()).toBeTruthy();
 	});
 
-	it('should reset form if initial value is null', () => {
-		const resetSpy = spyOn(service, 'reset').and.callThrough();
-		const numericRangeComponent = getNumericRangeComponent();
-
-		numericRangeComponent.writeValue(null);
-
-		expect(resetSpy).toHaveBeenCalled();
-	});
-
 	it('should emit on enter pressed and not emit on errors', () => {
 		const enterSpy = spyOn(
 			component,
