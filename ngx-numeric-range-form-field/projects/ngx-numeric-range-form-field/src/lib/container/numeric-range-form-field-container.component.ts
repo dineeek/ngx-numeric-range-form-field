@@ -16,6 +16,7 @@ import {
 	FormControl,
 	FormGroup,
 	NgControl,
+	ValidationErrors,
 	Validator
 } from '@angular/forms';
 import {
@@ -28,7 +29,7 @@ import { NumericRangeFormService } from '../form/numeric-range-form.service';
 import { INumericRange } from '../form/model/numeric-range-field.model';
 
 @Component({
-	selector: 'ngx-numeric-range-form-field-container',
+	selector: 'ngx-numeric-range-form-field',
 	templateUrl: './numeric-range-form-field-container.component.html',
 	styleUrls: ['./numeric-range-form-field-container.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -105,7 +106,7 @@ export class NumericRangeFormFieldContainerComponent
 		isDisabled ? this.control.disable() : this.control.enable();
 	}
 
-	validate(control: AbstractControl) {
+	validate(control: AbstractControl): ValidationErrors | null {
 		const errors = {
 			...this.minimumControl.errors,
 			...this.maximumControl.errors

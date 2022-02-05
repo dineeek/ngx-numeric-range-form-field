@@ -21,7 +21,7 @@
 		*ngIf="
 			resettable &&
 			!readonly &&
-			(minimumControl.value || maximumControl.value) &&
+			(minimumControl.value !== null || maximumControl.value !== null) &&
 			!formGroup.disabled
 		"
 		color="primary"

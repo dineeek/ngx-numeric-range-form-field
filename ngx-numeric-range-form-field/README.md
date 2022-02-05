@@ -32,13 +32,13 @@ npm install ngx-numeric-range-form-field
 In component HTML:
 
 ```html
-<ngx-numeric-range-form-field-container
+<ngx-numeric-range-form-field
 	[formControl]="rangeControl"
 	label="Numeric range"
 	(blurred)="onBlur()"
 	(enterPressed)="onEnter()"
 	(numericRangeChanged)="onValueChange($event)"
-></ngx-numeric-range-form-field-container>
+></ngx-numeric-range-form-field>
 ```
 
 In component.ts:
