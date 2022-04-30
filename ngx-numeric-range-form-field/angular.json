@@ -1,149 +1,173 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "ngx-numeric-range-form-field": {
-      "projectType": "library",
-      "root": "projects/ngx-numeric-range-form-field",
-      "sourceRoot": "projects/ngx-numeric-range-form-field/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/ngx-numeric-range-form-field/tsconfig.lib.json",
-            "project": "projects/ngx-numeric-range-form-field/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ngx-numeric-range-form-field/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-numeric-range-form-field/src/test.ts",
-            "tsConfig": "projects/ngx-numeric-range-form-field/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-numeric-range-form-field/karma.conf.js"
-          }
-        }
-      }
-    },
-    "ngx-numeric-range-form-field-demo": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/ngx-numeric-range-form-field-demo",
-      "sourceRoot": "projects/ngx-numeric-range-form-field-demo/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/ngx-numeric-range-form-field-demo",
-            "index": "projects/ngx-numeric-range-form-field-demo/src/index.html",
-            "main": "projects/ngx-numeric-range-form-field-demo/src/main.ts",
-            "polyfills": "projects/ngx-numeric-range-form-field-demo/src/polyfills.ts",
-            "tsConfig": "projects/ngx-numeric-range-form-field-demo/tsconfig.app.json",
-            "assets": [
-              "projects/ngx-numeric-range-form-field-demo/src/favicon.ico",
-              "projects/ngx-numeric-range-form-field-demo/src/assets"
-            ],
-            "styles": [
-              "projects/ngx-numeric-range-form-field-demo/src/styles.scss"
-            ],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/ngx-numeric-range-form-field-demo/src/environments/environment.ts",
-                  "with": "projects/ngx-numeric-range-form-field-demo/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          },
-          "defaultConfiguration": ""
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "ngx-numeric-range-form-field-demo:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "ngx-numeric-range-form-field-demo:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "ngx-numeric-range-form-field-demo:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-numeric-range-form-field-demo/src/test.ts",
-            "polyfills": "projects/ngx-numeric-range-form-field-demo/src/polyfills.ts",
-            "tsConfig": "projects/ngx-numeric-range-form-field-demo/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-numeric-range-form-field-demo/karma.conf.js",
-            "assets": [
-              "projects/ngx-numeric-range-form-field-demo/src/favicon.ico",
-              "projects/ngx-numeric-range-form-field-demo/src/assets"
-            ],
-            "styles": [
-              "projects/ngx-numeric-range-form-field-demo/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/ngx-numeric-range-form-field-demo/e2e/protractor.conf.js",
-            "devServerTarget": "ngx-numeric-range-form-field-demo:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ngx-numeric-range-form-field-demo:serve:production"
-            }
-          }
-        }
-      }
-    }
-  },
-  "defaultProject": "ngx-numeric-range-form-field"
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"version": 1,
+	"newProjectRoot": "projects",
+	"projects": {
+		"ngx-numeric-range-form-field": {
+			"projectType": "library",
+			"root": "projects/ngx-numeric-range-form-field",
+			"sourceRoot": "projects/ngx-numeric-range-form-field/src",
+			"prefix": "lib",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:ng-packagr",
+					"options": {
+						"tsConfig": "projects/ngx-numeric-range-form-field/tsconfig.lib.json",
+						"project": "projects/ngx-numeric-range-form-field/ng-package.json"
+					},
+					"configurations": {
+						"production": {
+							"tsConfig": "projects/ngx-numeric-range-form-field/tsconfig.lib.prod.json"
+						}
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"main": "projects/ngx-numeric-range-form-field/src/test.ts",
+						"tsConfig": "projects/ngx-numeric-range-form-field/tsconfig.spec.json",
+						"karmaConfig": "projects/ngx-numeric-range-form-field/karma.conf.js"
+					}
+				}
+			}
+		},
+		"ngx-numeric-range-form-field-demo": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
+			"root": "projects/ngx-numeric-range-form-field-demo",
+			"sourceRoot": "projects/ngx-numeric-range-form-field-demo/src",
+			"prefix": "app",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:browser",
+					"options": {
+						"outputPath": "dist/ngx-numeric-range-form-field-demo",
+						"index": "projects/ngx-numeric-range-form-field-demo/src/index.html",
+						"main": "projects/ngx-numeric-range-form-field-demo/src/main.ts",
+						"polyfills": "projects/ngx-numeric-range-form-field-demo/src/polyfills.ts",
+						"tsConfig": "projects/ngx-numeric-range-form-field-demo/tsconfig.app.json",
+						"assets": [
+							"projects/ngx-numeric-range-form-field-demo/src/favicon.ico",
+							"projects/ngx-numeric-range-form-field-demo/src/assets"
+						],
+						"styles": [
+							"projects/ngx-numeric-range-form-field-demo/src/styles.scss"
+						],
+						"scripts": [],
+						"vendorChunk": true,
+						"extractLicenses": false,
+						"buildOptimizer": false,
+						"sourceMap": true,
+						"optimization": false,
+						"namedChunks": true
+					},
+					"configurations": {
+						"production": {
+							"fileReplacements": [
+								{
+									"replace": "projects/ngx-numeric-range-form-field-demo/src/environments/environment.ts",
+									"with": "projects/ngx-numeric-range-form-field-demo/src/environments/environment.prod.ts"
+								}
+							],
+							"optimization": true,
+							"outputHashing": "all",
+							"sourceMap": false,
+							"namedChunks": false,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": true,
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "2mb",
+									"maximumError": "5mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "6kb",
+									"maximumError": "10kb"
+								}
+							]
+						},
+						"dev": {
+							"optimization": false,
+							"outputHashing": "all",
+							"sourceMap": true,
+							"namedChunks": true,
+							"extractLicenses": false,
+							"vendorChunk": true,
+							"buildOptimizer": false,
+							"budgets": [
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "100kb"
+								}
+							],
+							"fileReplacements": [
+								{
+									"replace": "projects/ngx-numeric-range-form-field-demo/src/environments/environment.ts",
+									"with": "projects/ngx-numeric-range-form-field-demo/src/environments/environment.dev.ts"
+								}
+							]
+						}
+					},
+					"defaultConfiguration": "dev"
+				},
+				"serve": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"options": {
+						"browserTarget": "ngx-numeric-range-form-field-demo:build"
+					},
+					"configurations": {
+						"production": {
+							"browserTarget": "ngx-numeric-range-form-field-demo:build:production"
+						},
+						"dev": {
+							"browserTarget": "ngx-numeric-range-form-field-demo:build:dev"
+						}
+					}
+				},
+				"extract-i18n": {
+					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"options": {
+						"browserTarget": "ngx-numeric-range-form-field-demo:build"
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"main": "projects/ngx-numeric-range-form-field-demo/src/test.ts",
+						"polyfills": "projects/ngx-numeric-range-form-field-demo/src/polyfills.ts",
+						"tsConfig": "projects/ngx-numeric-range-form-field-demo/tsconfig.spec.json",
+						"karmaConfig": "projects/ngx-numeric-range-form-field-demo/karma.conf.js",
+						"assets": [
+							"projects/ngx-numeric-range-form-field-demo/src/favicon.ico",
+							"projects/ngx-numeric-range-form-field-demo/src/assets"
+						],
+						"styles": [
+							"projects/ngx-numeric-range-form-field-demo/src/styles.scss"
+						],
+						"scripts": []
+					}
+				},
+				"e2e": {
+					"builder": "@angular-devkit/build-angular:protractor",
+					"options": {
+						"protractorConfig": "projects/ngx-numeric-range-form-field-demo/e2e/protractor.conf.js",
+						"devServerTarget": "ngx-numeric-range-form-field-demo:serve"
+					},
+					"configurations": {
+						"production": {
+							"devServerTarget": "ngx-numeric-range-form-field-demo:serve:production"
+						}
+					}
+				}
+			}
+		}
+	},
+	"defaultProject": "ngx-numeric-range-form-field"
 }
