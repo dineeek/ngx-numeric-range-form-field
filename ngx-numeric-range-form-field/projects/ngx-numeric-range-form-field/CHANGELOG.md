@@ -1,3 +1,8 @@
+### 2.0.0
+
+Migrated to Angular 13.
+Refactored lib name to `ngx-numeric-range-form-field`.
+
 ### 1.0.3
 
 Additional validation bugs fixing

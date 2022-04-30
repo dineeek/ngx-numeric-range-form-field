@@ -2,7 +2,9 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
 	FormControl,
+	FormControlDirective,
 	FormGroup,
+	NgControl,
 	ReactiveFormsModule,
 	Validators
 } from '@angular/forms';
@@ -15,30 +17,30 @@ import { NumericRangeFormFieldContainerComponent } from './numeric-range-form-fi
 
 @Component({
 	template: `
-		<ngx-numeric-range-form-field-container
+		<ngx-numeric-range-form-field
 			(enterPressed)="onNumericRangeEnterPressed()"
 			(numericRangeChanged)="onNumericRangeChanged($event)"
 			(blurred)="onRangeBlur()"
 			[formControl]="numericRangeControl"
 			label="Numeric range input field"
 		>
-		</ngx-numeric-range-form-field-container>
+		</ngx-numeric-range-form-field>
 	`
 })
 class HostComponent {
 	form: FormGroup;
 
-	get numericRangeControl() {
-		return this.form.get('numericRange') as FormControl;
-	}
-
-	ngOnInit(): void {
+	constructor() {
 		this.form = new FormGroup({
 			numericRange: new FormControl({ minimum: 0, maximum: 10 }, [
 				Validators.min(0),
 				Validators.max(10)
 			])
 		});
+	}
+
+	get numericRangeControl() {
+		return this.form.get('numericRange') as FormControl;
 	}
 
 	onRangeBlur(): void {
@@ -90,6 +92,18 @@ describe('NumericRangeFormFieldContainerComponent', () => {
 	}
 
 	beforeEach(async () => {
+		TestBed.overrideComponent(NumericRangeFormFieldContainerComponent, {
+			set: {
+				providers: [
+					{
+						provide: NgControl,
+						useValue: new FormControlDirective([], [], null, null)
+					},
+					NumericRangeFormService
+				]
+			}
+		});
+
 		await TestBed.configureTestingModule({
 			declarations: [
 				HostComponent,
@@ -97,7 +111,6 @@ describe('NumericRangeFormFieldContainerComponent', () => {
 				NumericRangeFormFieldControlComponent
 			],
 			imports: [ReactiveFormsModule, BrowserAnimationsModule],
-			providers: [NumericRangeFormService],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		}).compileComponents();
 	});

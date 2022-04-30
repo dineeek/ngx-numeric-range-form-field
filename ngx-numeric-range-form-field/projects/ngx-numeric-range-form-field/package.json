@@ -1,9 +1,9 @@
 {
 	"name": "ngx-numeric-range-form-field",
-	"version": "1.0.3",
+	"version": "2.0.0",
 	"peerDependencies": {
-		"@angular/common": "^11.1.2",
-		"@angular/core": "^11.1.2"
+		"@angular/common": "^13.0.0",
+		"@angular/core": "^13.0.0"
 	},
 	"dependencies": {
 		"tslib": "^2.0.0"
