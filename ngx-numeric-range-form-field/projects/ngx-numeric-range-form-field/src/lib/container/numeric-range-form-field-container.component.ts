@@ -17,7 +17,8 @@ import {
 	FormGroup,
 	NgControl,
 	ValidationErrors,
-	Validator
+	Validator,
+	ValidatorFn
 } from '@angular/forms';
 import {
 	FloatLabelType,
@@ -25,8 +26,8 @@ import {
 } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NumericRangeFormService } from '../form/numeric-range-form.service';
 import { INumericRange } from '../form/model/numeric-range-field.model';
+import { NumericRangeFormService } from '../form/numeric-range-form.service';
 
 @Component({
 	selector: 'ngx-numeric-range-form-field',
@@ -70,20 +71,26 @@ export class NumericRangeFormFieldContainerComponent
 	}
 
 	constructor(
-		@Self() public controlDirective: NgControl,
+		@Self() private controlDirective: NgControl,
 		@Host() private formService: NumericRangeFormService,
-		private readonly changeDetectorRef: ChangeDetectorRef
+		private changeDetectorRef: ChangeDetectorRef
 	) {
 		this.controlDirective.valueAccessor = this;
 	}
 
 	ngOnInit(): void {
 		const validator = this.controlDirective.control.validator;
-		this.control.setValidators(validator);
-		this.control.updateValueAndValidity();
+		this.setSyncValidator(validator);
+
 		this.controlDirective.control.setValidators(this.validate.bind(this));
+		this.controlDirective.control.updateValueAndValidity({ emitEvent: false });
 
 		this.changeDetectorRef.detectChanges();
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
 	}
 
 	writeValue(value: INumericRange): void {
@@ -131,8 +138,10 @@ export class NumericRangeFormFieldContainerComponent
 		this.formGroup.reset();
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe$.next();
-		this.unsubscribe$.complete();
+	private setSyncValidator(validator: ValidatorFn): void {
+		if (validator) {
+			this.control.setValidators(validator);
+			this.control.updateValueAndValidity();
+		}
 	}
 }

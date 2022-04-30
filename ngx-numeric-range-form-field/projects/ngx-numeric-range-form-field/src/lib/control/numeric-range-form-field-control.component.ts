@@ -6,7 +6,6 @@ import {
 	Input,
 	OnDestroy,
 	OnInit,
-	Optional,
 	Output,
 	Self,
 	SkipSelf
@@ -23,9 +22,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { INumericRange } from '../form/model/numeric-range-field.model';
 import { NumericRangeFormService } from '../form/numeric-range-form.service';
 import { NumericRangeStateMatcher } from '../form/numeric-range-state-matcher';
-import { INumericRange } from '../form/model/numeric-range-field.model';
 
 @Component({
 	selector: 'ngx-numeric-range-form-field-control',
@@ -130,26 +129,28 @@ export class NumericRangeFormFieldControlComponent
 	onTouched: () => void;
 
 	constructor(
-		@Optional() @Self() public ngControl: NgControl,
+		@Self() public ngControl: NgControl,
 		@SkipSelf() private formService: NumericRangeFormService
 	) {
-		if (ngControl !== null) {
-			this.ngControl.valueAccessor = this;
-		}
+		this.ngControl.valueAccessor = this;
+	}
+
+	ngOnInit(): void {
+		const validator = this.ngControl.control.validator;
+		this.formService.setSyncValidators(validator);
+
+		this.ngControl.control.setValidators(this.validate.bind(this));
+		this.ngControl.control.updateValueAndValidity({ emitEvent: false });
 	}
 
 	ngDoCheck(): void {
 		this.formGroup.markAllAsTouched();
 	}
 
-	ngOnInit(): void {
-		const validator = this.ngControl.control.validator;
-
-		this.minimumControl.setValidators(validator);
-		this.maximumControl.setValidators(validator);
-		this.formGroup.updateValueAndValidity();
-
-		this.ngControl.control.setValidators(this.validate.bind(this));
+	ngOnDestroy(): void {
+		this.stateChanges.complete();
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
 	}
 
 	writeValue(value: INumericRange): void {
@@ -206,11 +207,5 @@ export class NumericRangeFormFieldControlComponent
 		this.maximumControl.errors
 			? this.numericRangeChanged.emit(null)
 			: this.numericRangeChanged.emit(this.formGroup.value);
-	}
-
-	ngOnDestroy(): void {
-		this.stateChanges.complete();
-		this.unsubscribe$.next();
-		this.unsubscribe$.complete();
 	}
 }

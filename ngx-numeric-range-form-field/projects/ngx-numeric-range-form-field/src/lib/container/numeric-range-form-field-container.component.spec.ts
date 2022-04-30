@@ -1,19 +1,16 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-	FormGroup,
 	FormControl,
-	Validators,
-	ReactiveFormsModule
+	FormGroup,
+	ReactiveFormsModule,
+	Validators
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { numericRangeValues } from 'dist/ngx-numeric-range-form-field/lib/numeric-range-form-field-control/form/numeric-range.validator';
-import { NumericRangeFormService } from '../form/numeric-range-form.service';
-import { NumericRangeStateMatcher } from '../form/numeric-range-state-matcher';
-import { INumericRange } from '../form/model/numeric-range-field.model';
 import { NumericRangeFormFieldControlComponent } from '../control/numeric-range-form-field-control.component';
-
+import { INumericRange } from '../form/model/numeric-range-field.model';
+import { NumericRangeFormService } from '../form/numeric-range-form.service';
 import { NumericRangeFormFieldContainerComponent } from './numeric-range-form-field-container.component';
 
 @Component({

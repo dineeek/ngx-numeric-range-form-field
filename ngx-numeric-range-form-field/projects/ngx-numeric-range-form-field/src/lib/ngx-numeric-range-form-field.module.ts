@@ -19,7 +19,6 @@ import { NumericRangeFormFieldControlComponent } from './control/numeric-range-f
 		MatInputModule,
 		MatIconModule
 	],
-	providers: [],
 	exports: [NumericRangeFormFieldContainerComponent]
 })
 export class NgxNumericRangeFormFieldModule {}
