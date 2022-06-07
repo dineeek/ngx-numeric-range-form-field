@@ -1,4 +1,5 @@
 import {
+	ChangeDetectionStrategy,
 	Component,
 	DoCheck,
 	EventEmitter,
@@ -39,7 +40,8 @@ import { NumericRangeStateMatcher } from '../form/numeric-range-state-matcher';
 			provide: ErrorStateMatcher,
 			useClass: NumericRangeStateMatcher
 		}
-	]
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NumericRangeFormFieldControlComponent
 	implements
@@ -51,10 +53,17 @@ export class NumericRangeFormFieldControlComponent
 		Validator {
 	static nextId = 0;
 
+	get value() {
+		return this.formGroup.value;
+	}
 	@Input()
 	set value(value: INumericRange) {
 		this.formGroup.patchValue(value);
 		this.stateChanges.next();
+	}
+
+	get placeholder(): string {
+		return this._placeholder;
 	}
 
 	@Input() set placeholder(value: string) {
@@ -84,14 +93,6 @@ export class NumericRangeFormFieldControlComponent
 
 	@HostBinding()
 	id = `numeric-range-form-control-id-${NumericRangeFormFieldControlComponent.nextId++}`;
-
-	get value() {
-		return this.formGroup.value;
-	}
-
-	get placeholder(): string {
-		return this._placeholder;
-	}
 
 	get empty(): boolean {
 		return !this.value.minimum && !this.value.maximum;
@@ -126,7 +127,7 @@ export class NumericRangeFormFieldControlComponent
 
 	private _placeholder: string;
 
-	onTouched: () => void;
+	onTouched = () => {};
 
 	constructor(
 		@Self() public ngControl: NgControl,
@@ -136,10 +137,10 @@ export class NumericRangeFormFieldControlComponent
 	}
 
 	ngOnInit(): void {
-		const validator = this.ngControl.control.validator;
-		this.formService.setSyncValidators(validator);
+		this.formService.setSyncValidators(this.ngControl.control.validator);
+		this.formService.setAsyncValidators(this.ngControl.control.asyncValidator);
 
-		this.ngControl.control.setValidators(this.validate.bind(this));
+		this.ngControl.control.addValidators([this.validate.bind(this)]);
 		this.ngControl.control.updateValueAndValidity({ emitEvent: false });
 	}
 

@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import {
+	AsyncValidatorFn,
+	FormControl,
+	FormGroup,
+	ValidatorFn
+} from '@angular/forms';
 import { numericRangeValues } from './numeric-range.validator';
 
 @Injectable()
@@ -33,8 +38,18 @@ export class NumericRangeFormService {
 			return;
 		}
 
-		this.minimumControl.setValidators(validator);
-		this.maximumControl.setValidators(validator);
+		this.minimumControl.addValidators(validator); // sets the validators on child control
+		this.maximumControl.addValidators(validator); // sets the validators on child control
+		this.formGroup.updateValueAndValidity();
+	}
+
+	setAsyncValidators(asyncValidator: AsyncValidatorFn): void {
+		if (!asyncValidator) {
+			return;
+		}
+
+		this.minimumControl.addAsyncValidators(asyncValidator);
+		this.maximumControl.addAsyncValidators(asyncValidator);
 		this.formGroup.updateValueAndValidity();
 	}
 }

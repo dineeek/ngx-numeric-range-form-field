@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {
 	AbstractControl,
+	AsyncValidatorFn,
 	ControlValueAccessor,
 	FormControl,
 	FormGroup,
@@ -79,10 +80,10 @@ export class NumericRangeFormFieldContainerComponent
 	}
 
 	ngOnInit(): void {
-		const validator = this.controlDirective.control.validator;
-		this.setSyncValidator(validator);
+		this.setSyncValidator(this.controlDirective.control.validator);
+		this.setAsyncValidator(this.controlDirective.control.asyncValidator);
 
-		this.controlDirective.control.setValidators(this.validate.bind(this));
+		this.controlDirective.control.addValidators([this.validate.bind(this)]);
 		this.controlDirective.control.updateValueAndValidity({ emitEvent: false });
 
 		this.changeDetectorRef.detectChanges();
@@ -139,9 +140,20 @@ export class NumericRangeFormFieldContainerComponent
 	}
 
 	private setSyncValidator(validator: ValidatorFn): void {
-		if (validator) {
-			this.control.setValidators(validator);
-			this.control.updateValueAndValidity();
+		if (!validator) {
+			return;
 		}
+
+		this.control.addValidators(validator); // sets the validators on parent control
+		this.control.updateValueAndValidity();
+	}
+
+	private setAsyncValidator(asyncValidator: AsyncValidatorFn): void {
+		if (!asyncValidator) {
+			return;
+		}
+
+		this.control.addAsyncValidators(asyncValidator);
+		this.control.updateValueAndValidity();
 	}
 }

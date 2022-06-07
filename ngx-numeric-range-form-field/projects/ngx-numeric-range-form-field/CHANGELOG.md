@@ -1,3 +1,9 @@
+### 2.1.0
+
+Fixed on touched control implementation.
+Improved synchronous validation.
+Added async validation.
+
 ### 2.0.0
 
 Migrated to Angular 13.
