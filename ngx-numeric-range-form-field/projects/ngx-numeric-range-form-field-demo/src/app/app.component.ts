@@ -12,11 +12,13 @@ export class AppComponent {
 
 	constructor() {
 		this.form = new FormGroup({
-			range: new FormControl(10, [
-				Validators.required,
-				Validators.min(10),
-				Validators.max(100),
-			]),
+			range: new FormControl(
+				{
+					minimum: 10,
+					maximum: 100,
+				} as INumericRange,
+				[Validators.required, Validators.min(10), Validators.max(100)]
+			),
 		});
 	}
 

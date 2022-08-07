@@ -10,6 +10,8 @@
 		[minPlaceholder]="minPlaceholder"
 		[maxPlaceholder]="maxPlaceholder"
 		[readonly]="readonly"
+		[minReadonly]="minReadonly"
+		[maxReadonly]="maxReadonly"
 		[required]="required"
 		(blurred)="onBlur()"
 		(enterPressed)="onEnterPressed()"
@@ -21,6 +23,8 @@
 		*ngIf="
 			resettable &&
 			!readonly &&
+			!minReadonly &&
+			!maxReadonly &&
 			(minimumControl.value !== null || maximumControl.value !== null) &&
 			!formGroup.disabled
 		"

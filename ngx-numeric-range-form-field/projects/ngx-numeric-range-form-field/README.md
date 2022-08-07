@@ -1,6 +1,6 @@
 # ngx-numeric-range-form-field
 
-An Angular Material UI numeric range input form field. It is based on custom form field control and control value accessor which allows inserting minimum number and maximum number of some range.
+An Angular Material UI numeric range input form field. It is based on custom form field control and control value accessor which allows inserting range numbers, minimum and maximum.
 
 ![Numeric range form field](https://github.com/dineeek/ngx-numeric-range-form-field/blob/main/ngx-numeric-range-form-field/Numeric%20Range%20Form%20Field.png)
 
@@ -48,7 +48,10 @@ form: FormGroup;
 
 	constructor() {
 		this.form = new FormGroup({
-			range: new FormControl(null, [
+			range: new FormControl({
+					minimum: 10,
+					maximum: 100,
+				}, [
 				Validators.required, //optional
 				Validators.min(10), //optional
 				Validators.max(100), //optional
@@ -82,6 +85,8 @@ Customizable input and output decorators:
 @Input() minPlaceholder = 'From'; // Placeholder of the minimum value control
 @Input() maxPlaceholder = 'To'; // Placeholder of the maximum value control
 @Input() readonly = false; // Indicator wether the both controls are readonly
+@Input() minReadonly = false; // Indicator wether the minimum control is readonly
+@Input() maxReadonly = false; // Indicator wether the maximum control is readonly
 @Input() resettable = true; // Indicator wether the both controls are resettable
 @Input() required: boolean; // Required validation
 @Input() requiredErrorMessage = 'Field is required!'; // Customizable error message when field is required
@@ -107,4 +112,4 @@ export interface INumericRange {
 
 Apache License
 
-Copyright (c) 2021 Dino Klicek
+Copyright (c) 2022 Dino Klicek

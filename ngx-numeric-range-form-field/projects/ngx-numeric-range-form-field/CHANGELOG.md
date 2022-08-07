@@ -1,6 +1,10 @@
+### 2.2.0
+
+Added readonly for every input.
+
 ### 2.1.0
 
-Fixed on touched control implementation.
+Fixed onTouched control implementation.
 Improved synchronous validation.
 Added async validation.
 
@@ -11,11 +15,11 @@ Refactored lib name to `ngx-numeric-range-form-field`.
 
 ### 1.0.3
 
-Additional validation bugs fixing
+Validation bugs fixing.
 
 ### 1.0.2
 
-Fixed validation bugs and added tests
+Fixed validation bugs and added tests.
 
 ### 1.0.1
 

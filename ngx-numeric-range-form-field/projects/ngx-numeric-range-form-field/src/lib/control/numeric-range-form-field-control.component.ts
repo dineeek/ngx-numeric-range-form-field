@@ -74,6 +74,8 @@ export class NumericRangeFormFieldControlComponent
 	@Input() minPlaceholder: string;
 	@Input() maxPlaceholder: string;
 	@Input() readonly = false;
+	@Input() minReadonly = false;
+	@Input() maxReadonly = false;
 	@Input() required: boolean;
 	@Input() disabled: boolean;
 	@Input() errorStateMatcher: ErrorStateMatcher;
@@ -140,7 +142,7 @@ export class NumericRangeFormFieldControlComponent
 		this.formService.setSyncValidators(this.ngControl.control.validator);
 		this.formService.setAsyncValidators(this.ngControl.control.asyncValidator);
 
-		this.ngControl.control.addValidators([this.validate.bind(this)]);
+		this.ngControl.control.setValidators([this.validate.bind(this)]);
 		this.ngControl.control.updateValueAndValidity({ emitEvent: false });
 	}
 

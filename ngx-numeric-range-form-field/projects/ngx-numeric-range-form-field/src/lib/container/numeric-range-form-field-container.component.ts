@@ -1,3 +1,4 @@
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -45,6 +46,8 @@ export class NumericRangeFormFieldContainerComponent
 	@Input() minPlaceholder = 'From';
 	@Input() maxPlaceholder = 'To';
 	@Input() readonly = false;
+	@Input() minReadonly = false;
+	@Input() maxReadonly = false;
 	@Input() resettable = true;
 	@Input() required: boolean;
 	@Input() requiredErrorMessage = 'Field is required!';
@@ -83,7 +86,7 @@ export class NumericRangeFormFieldContainerComponent
 		this.setSyncValidator(this.controlDirective.control.validator);
 		this.setAsyncValidator(this.controlDirective.control.asyncValidator);
 
-		this.controlDirective.control.addValidators([this.validate.bind(this)]);
+		this.controlDirective.control.setValidators([this.validate.bind(this)]); // overrides the parent control validators by sending out errors from validate()
 		this.controlDirective.control.updateValueAndValidity({ emitEvent: false });
 
 		this.changeDetectorRef.detectChanges();
@@ -144,7 +147,7 @@ export class NumericRangeFormFieldContainerComponent
 			return;
 		}
 
-		this.control.addValidators(validator); // sets the validators on parent control
+		this.control.addValidators(validator); // sets the validators from parent control
 		this.control.updateValueAndValidity();
 	}
 

@@ -2,7 +2,7 @@
 	(blur)="onBlur()"
 	(change)="onRangeValuesChanged()"
 	(keyup.enter)="onEnterPressed()"
-	[readonly]="readonly"
+	[readonly]="readonly || minReadonly"
 	[formControl]="minimumControl"
 	matInput
 	[placeholder]="minPlaceholder"
@@ -14,7 +14,7 @@
 	(change)="onRangeValuesChanged()"
 	(keyup.enter)="onEnterPressed()"
 	[formControl]="maximumControl"
-	[readonly]="readonly"
+	[readonly]="readonly || maxReadonly"
 	matInput
 	[placeholder]="maxPlaceholder"
 	type="number"
