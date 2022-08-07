@@ -45,7 +45,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-
-# demo
-ngx-numeric-range-form-field-demo
