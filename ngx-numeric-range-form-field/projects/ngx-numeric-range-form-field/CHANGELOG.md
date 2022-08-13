@@ -1,3 +1,7 @@
+### 2.3.0
+
+Added support for dynamic change of sync validators
+
 ### 2.2.0
 
 Added readonly for every input.

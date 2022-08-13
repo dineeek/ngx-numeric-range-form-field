@@ -33,6 +33,21 @@ export class NumericRangeFormService {
 		return this.form;
 	}
 
+	setDynamicValidators(validators: ValidatorFn | ValidatorFn[]): void {
+		if (!validators) {
+			return;
+		}
+
+		this.minimumControl.setErrors(null);
+		this.maximumControl.setErrors(null);
+
+		this.minimumControl.setValidators(validators); // sets the validators on child control
+		this.maximumControl.setValidators(validators); // sets the validators on child control
+
+		this.minimumControl.updateValueAndValidity({ emitEvent: false });
+		this.maximumControl.updateValueAndValidity({ emitEvent: false });
+	}
+
 	setSyncValidators(validator: ValidatorFn): void {
 		if (!validator) {
 			return;

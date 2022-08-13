@@ -1,6 +1,6 @@
 # ngx-numeric-range-form-field
 
-An Angular Material UI numeric range input form field. It is based on custom form field control and control value accessor which allows inserting minimum number and maximum number of some range.
+An Angular Material UI numeric range input form field. It is based on custom form field control and control value accessor which allows inserting range numbers, minimum and maximum.
 
 ![Numeric range form field](https://github.com/dineeek/ngx-numeric-range-form-field/blob/main/ngx-numeric-range-form-field/Numeric%20Range%20Form%20Field.png)
 
@@ -48,7 +48,10 @@ form: FormGroup;
 
 	constructor() {
 		this.form = new FormGroup({
-			range: new FormControl(null, [
+			range: new FormControl({
+					minimum: 10,
+					maximum: 100,
+				}, [
 				Validators.required, //optional
 				Validators.min(10), //optional
 				Validators.max(100), //optional
@@ -81,13 +84,15 @@ Customizable input and output decorators:
 @Input() floatLabel: 'always' | 'never' | 'auto' = 'always';
 @Input() minPlaceholder = 'From'; // Placeholder of the minimum value control
 @Input() maxPlaceholder = 'To'; // Placeholder of the maximum value control
-@Input() readonly = false; // Indicator wether the both controls are readonly
-@Input() resettable = true; // Indicator wether the both controls are resettable
-@Input() required: boolean; // Required validation
+@Input() readonly = false; // Flag for readonly both controls
+@Input() minReadonly = false; // Flag for readonly minimum control
+@Input() maxReadonly = false; // Flag for readonly maximum control
+@Input() resettable = true; // Flag for resetting controls value
 @Input() requiredErrorMessage = 'Field is required!'; // Customizable error message when field is required
 @Input() minimumErrorMessage = 'Minimum has been reached!'; // Customizable error message when field has min validation
 @Input() maximumErrorMessage = 'Maximum has exceeded!'; // Customizable error message when field has max validation
 @Input() invalidRangeErrorMessage = 'Inserted range is not valid!'; // Customizable error message when field has invalid numeric range
+@Input() dynamicSyncValidators: ValidatorFn | ValidatorFn[]; // Dynamic change of sync validators
 
 @Output() blurred = new EventEmitter<void>(); // Event which emits where user leaves control (focus out)
 @Output() enterPressed = new EventEmitter<void>(); // Event which emits when enter is pressed
@@ -107,4 +112,4 @@ export interface INumericRange {
 
 Apache License
 
-Copyright (c) 2021 Dino Klicek
+Copyright (c) 2022 Dino Klicek

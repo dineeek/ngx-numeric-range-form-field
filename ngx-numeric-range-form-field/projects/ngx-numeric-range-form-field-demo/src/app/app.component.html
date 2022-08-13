@@ -1,8 +1,107 @@
-<ngx-numeric-range-form-field
-	[formControl]="rangeControl"
-	label="Numeric range"
-	(blurred)="onBlur()"
-	(enterPressed)="onEnter()"
-	(numericRangeChanged)="onValueChange($event)"
-	[minReadonly]="true"
-></ngx-numeric-range-form-field>
+<form [formGroup]="form">
+	<ngx-numeric-range-form-field
+		formControlName="range"
+		label="Numeric range"
+		(blurred)="onBlur()"
+		(enterPressed)="onEnter()"
+		(numericRangeChanged)="onValueChange($event)"
+		[readonly]="readonly"
+		[minReadonly]="minReadonly"
+		[maxReadonly]="maxReadonly"
+		[disabled]="disabled"
+		[resettable]="resettable"
+		[dynamicSyncValidators]="dynamicSyncValidators | async"
+	></ngx-numeric-range-form-field>
+
+	<h3>Current value:</h3>
+	<p>{{ rangeControl.value | json }}</p>
+
+	<div class="options">
+		<h3>State options:</h3>
+		<mat-slide-toggle (change)="onDisabled($event)">Disabled</mat-slide-toggle>
+
+		<h3>Validation options:</h3>
+		<mat-slide-toggle (change)="onRequiredChange($event)"
+			>Required</mat-slide-toggle
+		>
+
+		<div class="options__group">
+			<mat-form-field appearance="legacy">
+				<mat-label>Minimum</mat-label>
+				<input formControlName="minimumOption" matInput placeholder="Minimum" />
+			</mat-form-field>
+
+			<mat-form-field appearance="legacy">
+				<mat-label>Maximum</mat-label>
+				<input formControlName="maximumOption" matInput placeholder="Maximum" />
+			</mat-form-field>
+		</div>
+
+		<h3>Readonly options:</h3>
+		<div class="options__group">
+			<mat-slide-toggle (change)="readonly = $event.checked"
+				>Readonly</mat-slide-toggle
+			>
+
+			<mat-slide-toggle (change)="minReadonly = $event.checked"
+				>Min</mat-slide-toggle
+			>
+			<mat-slide-toggle (change)="maxReadonly = $event.checked"
+				>Max</mat-slide-toggle
+			>
+		</div>
+
+		<h3>Reset option:</h3>
+		<mat-slide-toggle (change)="resettable = $event.checked"
+			>Resettable</mat-slide-toggle
+		>
+	</div>
+
+	<h3>Legacy appearance:</h3>
+	<ngx-numeric-range-form-field
+		appearance="legacy"
+		formControlName="range"
+		label="Numeric range"
+		(blurred)="onBlur()"
+		(enterPressed)="onEnter()"
+		(numericRangeChanged)="onValueChange($event)"
+		[readonly]="readonly"
+		[minReadonly]="minReadonly"
+		[maxReadonly]="maxReadonly"
+		[disabled]="disabled"
+		[resettable]="resettable"
+		[dynamicSyncValidators]="dynamicSyncValidators | async"
+	></ngx-numeric-range-form-field>
+
+	<h3>Standard appearance:</h3>
+	<ngx-numeric-range-form-field
+		appearance="standard"
+		formControlName="range"
+		label="Numeric range"
+		(blurred)="onBlur()"
+		(enterPressed)="onEnter()"
+		(numericRangeChanged)="onValueChange($event)"
+		[readonly]="readonly"
+		[minReadonly]="minReadonly"
+		[maxReadonly]="maxReadonly"
+		[disabled]="disabled"
+		[resettable]="resettable"
+		[dynamicSyncValidators]="dynamicSyncValidators | async"
+	></ngx-numeric-range-form-field>
+
+	<h3>Fill appearance:</h3>
+	<ngx-numeric-range-form-field
+		appearance="fill"
+		formControlName="range"
+		label="Numeric range"
+		(blurred)="onBlur()"
+		(enterPressed)="onEnter()"
+		(numericRangeChanged)="onValueChange($event)"
+		[readonly]="readonly"
+		[minReadonly]="minReadonly"
+		[maxReadonly]="maxReadonly"
+		[disabled]="disabled"
+		[resettable]="resettable"
+		[dynamicSyncValidators]="dynamicSyncValidators | async"
+	></ngx-numeric-range-form-field>
+</form>

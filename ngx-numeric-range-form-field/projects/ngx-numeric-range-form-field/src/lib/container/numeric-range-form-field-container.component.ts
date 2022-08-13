@@ -6,10 +6,12 @@ import {
 	EventEmitter,
 	Host,
 	Input,
+	OnChanges,
 	OnDestroy,
 	OnInit,
 	Output,
-	Self
+	Self,
+	SimpleChanges
 } from '@angular/core';
 import {
 	AbstractControl,
@@ -20,7 +22,8 @@ import {
 	NgControl,
 	ValidationErrors,
 	Validator,
-	ValidatorFn
+	ValidatorFn,
+	Validators
 } from '@angular/forms';
 import {
 	FloatLabelType,
@@ -39,7 +42,7 @@ import { NumericRangeFormService } from '../form/numeric-range-form.service';
 	providers: [NumericRangeFormService]
 })
 export class NumericRangeFormFieldContainerComponent
-	implements OnInit, OnDestroy, ControlValueAccessor, Validator {
+	implements OnChanges, OnInit, OnDestroy, ControlValueAccessor, Validator {
 	@Input() label: string;
 	@Input() appearance: MatFormFieldAppearance = 'outline';
 	@Input() floatLabel: FloatLabelType = 'always';
@@ -54,6 +57,7 @@ export class NumericRangeFormFieldContainerComponent
 	@Input() minimumErrorMessage = 'Minimum has been reached!';
 	@Input() maximumErrorMessage = 'Maximum has exceeded!';
 	@Input() invalidRangeErrorMessage = 'Inserted range is not valid!';
+	@Input() dynamicSyncValidators: ValidatorFn | ValidatorFn[];
 
 	@Output() blurred = new EventEmitter<void>();
 	@Output() enterPressed = new EventEmitter<void>();
@@ -80,6 +84,14 @@ export class NumericRangeFormFieldContainerComponent
 		private changeDetectorRef: ChangeDetectorRef
 	) {
 		this.controlDirective.valueAccessor = this;
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes.dynamicSyncValidators) {
+			this.control.setErrors(null);
+			this.control.setValidators(this.dynamicSyncValidators);
+			this.control.updateValueAndValidity({ emitEvent: false });
+		}
 	}
 
 	ngOnInit(): void {
@@ -122,6 +134,7 @@ export class NumericRangeFormFieldContainerComponent
 			...this.minimumControl.errors,
 			...this.maximumControl.errors
 		};
+
 		return Object.keys(errors).length ? errors : null;
 	}
 

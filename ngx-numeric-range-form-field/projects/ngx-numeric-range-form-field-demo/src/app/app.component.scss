@@ -1,0 +1,16 @@
+.options {
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	row-gap: 10px;
+
+	&__group {
+		display: flex;
+		flex-direction: row;
+		column-gap: 20px;
+	}
+
+	h3 {
+		margin-bottom: 0;
+	}
+}

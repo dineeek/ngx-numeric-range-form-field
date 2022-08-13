@@ -84,15 +84,15 @@ Customizable input and output decorators:
 @Input() floatLabel: 'always' | 'never' | 'auto' = 'always';
 @Input() minPlaceholder = 'From'; // Placeholder of the minimum value control
 @Input() maxPlaceholder = 'To'; // Placeholder of the maximum value control
-@Input() readonly = false; // Indicator wether the both controls are readonly
-@Input() minReadonly = false; // Indicator wether the minimum control is readonly
-@Input() maxReadonly = false; // Indicator wether the maximum control is readonly
-@Input() resettable = true; // Indicator wether the both controls are resettable
-@Input() required: boolean; // Required validation
+@Input() readonly = false; // Flag for readonly both controls
+@Input() minReadonly = false; // Flag for readonly minimum control
+@Input() maxReadonly = false; // Flag for readonly maximum control
+@Input() resettable = true; // Flag for resetting controls value
 @Input() requiredErrorMessage = 'Field is required!'; // Customizable error message when field is required
 @Input() minimumErrorMessage = 'Minimum has been reached!'; // Customizable error message when field has min validation
 @Input() maximumErrorMessage = 'Maximum has exceeded!'; // Customizable error message when field has max validation
 @Input() invalidRangeErrorMessage = 'Inserted range is not valid!'; // Customizable error message when field has invalid numeric range
+@Input() dynamicSyncValidators: ValidatorFn | ValidatorFn[]; // Dynamic change of sync validators
 
 @Output() blurred = new EventEmitter<void>(); // Event which emits where user leaves control (focus out)
 @Output() enterPressed = new EventEmitter<void>(); // Event which emits when enter is pressed

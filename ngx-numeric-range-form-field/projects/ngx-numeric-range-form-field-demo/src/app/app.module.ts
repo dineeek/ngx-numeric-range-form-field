@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { NgxNumericRangeFormFieldModule } from 'projects/ngx-numeric-range-form-field/src/lib/ngx-numeric-range-form-field.module';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { NgxNumericRangeFormFieldModule } from 'projects/ngx-numeric-range-form-
 		MatFormFieldModule,
 		MatInputModule,
 		MatIconModule,
+		MatSlideToggleModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

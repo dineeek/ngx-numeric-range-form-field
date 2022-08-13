@@ -5,10 +5,12 @@ import {
 	EventEmitter,
 	HostBinding,
 	Input,
+	OnChanges,
 	OnDestroy,
 	OnInit,
 	Output,
 	Self,
+	SimpleChanges,
 	SkipSelf
 } from '@angular/core';
 import {
@@ -17,7 +19,8 @@ import {
 	FormControl,
 	FormGroup,
 	NgControl,
-	Validator
+	Validator,
+	ValidatorFn
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -45,6 +48,7 @@ import { NumericRangeStateMatcher } from '../form/numeric-range-state-matcher';
 })
 export class NumericRangeFormFieldControlComponent
 	implements
+		OnChanges,
 		OnInit,
 		DoCheck,
 		OnDestroy,
@@ -80,6 +84,7 @@ export class NumericRangeFormFieldControlComponent
 	@Input() disabled: boolean;
 	@Input() errorStateMatcher: ErrorStateMatcher;
 	@Input() autofilled?: boolean;
+	@Input() dynamicSyncValidators: ValidatorFn | ValidatorFn[];
 
 	@Output() blurred = new EventEmitter<void>();
 	@Output() enterPressed = new EventEmitter<void>();
@@ -136,6 +141,12 @@ export class NumericRangeFormFieldControlComponent
 		@SkipSelf() private formService: NumericRangeFormService
 	) {
 		this.ngControl.valueAccessor = this;
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes.dynamicSyncValidators) {
+			this.formService.setDynamicValidators(this.dynamicSyncValidators);
+		}
 	}
 
 	ngOnInit(): void {
