@@ -1,6 +1,11 @@
+### 3.0.1
+
+Fix installing problems.
+
 ### 3.0.0
 
 Migrated to Angular 14.
+Unpublished due to installing problems.
 
 ### 2.3.0
 

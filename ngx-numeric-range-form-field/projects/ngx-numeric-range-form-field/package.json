@@ -1,14 +1,12 @@
 {
 	"name": "ngx-numeric-range-form-field",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"peerDependencies": {
-		"@angular/common": ">=12.0.0",
-		"@angular/core": ">=12.0.0"
+		"@angular/common": "^14.0.0",
+		"@angular/core": "^14.0.0"
 	},
 	"dependencies": {
-		"tslib": "^2.0.0",
-		"@angular/forms": ">=12.0.0",
-		"@angular/material": ">=12.0.0"
+		"tslib": "^2.0.0"
 	},
 	"author": {
 		"name": "Dino Klicek",

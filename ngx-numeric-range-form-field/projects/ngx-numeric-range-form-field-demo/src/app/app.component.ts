@@ -5,14 +5,9 @@ import {
 	ValidatorFn,
 	Validators,
 } from '@angular/forms';
-import {
-	FloatLabelType,
-	MatFormFieldAppearance,
-} from '@angular/material/form-field';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { INumericRange } from 'projects/ngx-numeric-range-form-field/src/lib/form/model/numeric-range-field.model';
-import { combineLatest, merge, Subject, zip } from 'rxjs';
-import { startWith, withLatestFrom } from 'rxjs/operators';
+import { INumericRange } from 'ngx-numeric-range-form-field';
+import { merge, Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-root',

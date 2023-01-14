@@ -3,6 +3,5 @@
 	"dest": "../../dist/ngx-numeric-range-form-field",
 	"lib": {
 		"entryFile": "src/public-api.ts"
-	},
-	"allowedNonPeerDependencies": ["@angular/forms", "@angular/material"]
+	}
 }
