@@ -1,3 +1,7 @@
+### 3.0.0
+
+Migrated to Angular 14.
+
 ### 2.3.0
 
 Added support for dynamic change of sync validators
@@ -15,7 +19,7 @@ Added async validation.
 ### 2.0.0
 
 Migrated to Angular 13.
-Refactored lib name to `ngx-numeric-range-form-field`.
+Refactored component name to `ngx-numeric-range-form-field`.
 
 ### 1.0.3
 

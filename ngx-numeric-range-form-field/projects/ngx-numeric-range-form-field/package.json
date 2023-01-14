@@ -1,12 +1,14 @@
 {
 	"name": "ngx-numeric-range-form-field",
-	"version": "2.3.0",
+	"version": "3.0.0",
 	"peerDependencies": {
-		"@angular/common": "^13.0.0",
-		"@angular/core": "^13.0.0"
+		"@angular/common": ">=12.0.0",
+		"@angular/core": ">=12.0.0"
 	},
 	"dependencies": {
-		"tslib": "^2.0.0"
+		"tslib": "^2.0.0",
+		"@angular/forms": ">=12.0.0",
+		"@angular/material": ">=12.0.0"
 	},
 	"author": {
 		"name": "Dino Klicek",
@@ -31,6 +33,9 @@
 		"angular range",
 		"input range",
 		"angular input range",
+		"numeric range",
+		"user range",
+		"range input",
 		"form",
 		"field",
 		"mat form field",
@@ -38,7 +43,7 @@
 		"cva",
 		"library"
 	],
-	"license": "Apache",
+	"license": "MIT",
 	"homepage": "https://github.com/dineeek/ngx-numeric-range-form-field/blob/main/README.md",
 	"bugs": {
 		"url": "https://github.com/dineeek/ngx-numeric-range-form-field/issues"

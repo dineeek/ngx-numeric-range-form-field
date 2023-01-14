@@ -1,4 +1,3 @@
-import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -18,12 +17,10 @@ import {
 	AsyncValidatorFn,
 	ControlValueAccessor,
 	FormControl,
-	FormGroup,
 	NgControl,
 	ValidationErrors,
 	Validator,
-	ValidatorFn,
-	Validators
+	ValidatorFn
 } from '@angular/forms';
 import {
 	FloatLabelType,
@@ -31,7 +28,10 @@ import {
 } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { INumericRange } from '../form/model/numeric-range-field.model';
+import {
+	INumericRange,
+	NumericRangeFormGroup
+} from '../form/model/numeric-range-field.model';
 import { NumericRangeFormService } from '../form/numeric-range-form.service';
 
 @Component({
@@ -42,18 +42,24 @@ import { NumericRangeFormService } from '../form/numeric-range-form.service';
 	providers: [NumericRangeFormService]
 })
 export class NumericRangeFormFieldContainerComponent
-	implements OnChanges, OnInit, OnDestroy, ControlValueAccessor, Validator {
+	implements OnChanges, OnInit, OnDestroy, ControlValueAccessor, Validator
+{
 	@Input() label: string;
 	@Input() appearance: MatFormFieldAppearance = 'outline';
 	@Input() floatLabel: FloatLabelType = 'always';
+
 	@Input() minPlaceholder = 'From';
 	@Input() maxPlaceholder = 'To';
+
 	@Input() readonly = false;
 	@Input() minReadonly = false;
 	@Input() maxReadonly = false;
+
 	@Input() resettable = true;
+
 	@Input() required: boolean;
 	@Input() requiredErrorMessage = 'Field is required!';
+
 	@Input() minimumErrorMessage = 'Minimum has been reached!';
 	@Input() maximumErrorMessage = 'Maximum has exceeded!';
 	@Input() invalidRangeErrorMessage = 'Inserted range is not valid!';
@@ -63,18 +69,18 @@ export class NumericRangeFormFieldContainerComponent
 	@Output() enterPressed = new EventEmitter<void>();
 	@Output() numericRangeChanged = new EventEmitter<INumericRange>();
 
-	formGroup: FormGroup = this.formService.formGroup;
+	formGroup: NumericRangeFormGroup = this.formService.formGroup;
 	control = new FormControl();
 
-	private unsubscribe$ = new Subject();
+	private unsubscribe$ = new Subject<void>();
 
 	onTouched = () => {};
 
-	get minimumControl(): FormControl {
+	get minimumControl(): FormControl<number> {
 		return this.formService.minimumControl;
 	}
 
-	get maximumControl(): FormControl {
+	get maximumControl(): FormControl<number> {
 		return this.formService.maximumControl;
 	}
 

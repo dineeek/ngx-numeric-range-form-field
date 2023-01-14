@@ -17,7 +17,6 @@ import {
 	AbstractControl,
 	ControlValueAccessor,
 	FormControl,
-	FormGroup,
 	NgControl,
 	Validator,
 	ValidatorFn
@@ -26,7 +25,10 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { INumericRange } from '../form/model/numeric-range-field.model';
+import {
+	INumericRange,
+	NumericRangeFormGroup
+} from '../form/model/numeric-range-field.model';
 import { NumericRangeFormService } from '../form/numeric-range-form.service';
 import { NumericRangeStateMatcher } from '../form/numeric-range-state-matcher';
 
@@ -54,12 +56,14 @@ export class NumericRangeFormFieldControlComponent
 		OnDestroy,
 		MatFormFieldControl<INumericRange>,
 		ControlValueAccessor,
-		Validator {
+		Validator
+{
 	static nextId = 0;
 
 	get value() {
-		return this.formGroup.value;
+		return this.formGroup.getRawValue();
 	}
+
 	@Input()
 	set value(value: INumericRange) {
 		this.formGroup.patchValue(value);
@@ -112,15 +116,15 @@ export class NumericRangeFormFieldControlComponent
 		);
 	}
 
-	get minimumControl(): FormControl {
+	get minimumControl(): FormControl<number> {
 		return this.formService.minimumControl;
 	}
 
-	get maximumControl(): FormControl {
+	get maximumControl(): FormControl<number> {
 		return this.formService.maximumControl;
 	}
 
-	formGroup: FormGroup = this.formService.formGroup;
+	formGroup: NumericRangeFormGroup = this.formService.formGroup;
 
 	stateChanges = new Subject<void>();
 
@@ -220,6 +224,6 @@ export class NumericRangeFormFieldControlComponent
 		this.minimumControl.errors ||
 		this.maximumControl.errors
 			? this.numericRangeChanged.emit(null)
-			: this.numericRangeChanged.emit(this.formGroup.value);
+			: this.numericRangeChanged.emit(this.formGroup.getRawValue());
 	}
 }

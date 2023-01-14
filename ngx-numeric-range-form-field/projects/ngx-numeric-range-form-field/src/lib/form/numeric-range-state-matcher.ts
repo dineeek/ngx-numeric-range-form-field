@@ -8,7 +8,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 
 export class NumericRangeStateMatcher implements ErrorStateMatcher {
 	isErrorState(
-		control: FormControl | null,
+		control: FormControl<number> | null,
 		form: FormGroup | FormGroupDirective | NgForm | null
 	): boolean {
 		if (!control.parent && form instanceof FormGroup) {

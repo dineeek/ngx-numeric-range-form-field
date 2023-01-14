@@ -29,19 +29,19 @@ npm install ngx-numeric-range-form-field
 
 # Usage
 
-In component HTML:
+Template:
 
 ```html
-<ngx-numeric-range-form-field
-	[formControl]="rangeControl"
-	label="Numeric range"
-	(blurred)="onBlur()"
-	(enterPressed)="onEnter()"
-	(numericRangeChanged)="onValueChange($event)"
-></ngx-numeric-range-form-field>
+<form [formGroup]="form">
+	<ngx-numeric-range-form-field
+		formControlName="range"
+		label="Numeric range"
+		(blurred)="onBlur()"
+		(enterPressed)="onEnter()"
+		(numericRangeChanged)="onNumericRangeChanged($event)"
+	></ngx-numeric-range-form-field>
+</form>
 ```
-
-In component.ts:
 
 ```typescript
 form: FormGroup;
@@ -59,10 +59,6 @@ form: FormGroup;
 		});
 	}
 
-	get rangeControl(): FormControl {
-		return this.form.get('range') as FormControl;
-	}
-
 	onBlur(): void {
 		console.log('Value', this.rangeControl.value);
 	}
@@ -71,45 +67,91 @@ form: FormGroup;
 		console.log('Enter pressed!');
 	}
 
-	onValueChange(value: INumericRange): void {
+	onNumericRangeChanged(value: INumericRange): void {
 		console.log('Changed value: ', value);
 	}
 ```
 
-Customizable input and output decorators:
+It is based on following type:
 
 ```typescript
-@Input() label: string; // Label of the control
-@Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'outline';
-@Input() floatLabel: 'always' | 'never' | 'auto' = 'always';
-@Input() minPlaceholder = 'From'; // Placeholder of the minimum value control
-@Input() maxPlaceholder = 'To'; // Placeholder of the maximum value control
-@Input() readonly = false; // Flag for readonly both controls
-@Input() minReadonly = false; // Flag for readonly minimum control
-@Input() maxReadonly = false; // Flag for readonly maximum control
-@Input() resettable = true; // Flag for resetting controls value
-@Input() requiredErrorMessage = 'Field is required!'; // Customizable error message when field is required
-@Input() minimumErrorMessage = 'Minimum has been reached!'; // Customizable error message when field has min validation
-@Input() maximumErrorMessage = 'Maximum has exceeded!'; // Customizable error message when field has max validation
-@Input() invalidRangeErrorMessage = 'Inserted range is not valid!'; // Customizable error message when field has invalid numeric range
-@Input() dynamicSyncValidators: ValidatorFn | ValidatorFn[]; // Dynamic change of sync validators
-
-@Output() blurred = new EventEmitter<void>(); // Event which emits where user leaves control (focus out)
-@Output() enterPressed = new EventEmitter<void>(); // Event which emits when enter is pressed
-@Output() numericRangeChanged = new EventEmitter<INumericRange>(); // Event which emits when one of range value is changed
-```
-
-It is based on following interface:
-
-```typescript
-export interface INumericRange {
+type INumericRange = {
 	minimum: number;
 	maximum: number;
-}
+};
 ```
+
+### Input property decorators:
+
+- #### label
+
+  Set label of the field.
+
+- #### appearance
+
+  Set MatFormFieldAppearance.
+
+- #### floatLabel
+
+  Set FloatLabelType.
+
+- #### minPlaceholder & maxPlaceholder
+
+  Set placeholder of the minimum value control. Defaulted to 'From'.
+  Set placeholder of the maximum value control. Defaulted to 'To'.
+
+- #### readonly
+
+  Set field value as readonly.
+
+- #### minReadonly & maxReadonly
+
+  Set flag for separated readonly value.
+
+- #### resettable
+
+  Set showing icon for resetting value in field.
+
+- #### requiredErrorMessage
+
+  Set error message on required validation.
+
+- #### minimumErrorMessage & maximumErrorMessage
+
+  Set error message on min & max value validation.
+
+- #### maximumErrorMessage
+
+  Set error message on min value validation.
+
+- #### invalidRangeErrorMessage
+
+  Set error message on invalid numeric range.
+
+- #### dynamicSyncValidators
+
+  Set sync validators on runtime.
+
+### Output property decorators:
+
+- #### blurred
+
+  Emit on blur out.
+
+- #### enterPressed
+
+  Emit on enter press.
+
+- #### numericRangeChanged
+
+  Emit on value change.
+
+# Contributing
+
+Contributions are more than welcome!
 
 # License
 
-Apache License
+MIT License
 
 Copyright (c) 2022 Dino Klicek

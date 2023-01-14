@@ -5,11 +5,12 @@ import {
 	FormGroup,
 	ValidatorFn
 } from '@angular/forms';
+import { NumericRangeFormGroup } from './model/numeric-range-field.model';
 import { numericRangeValues } from './numeric-range.validator';
 
 @Injectable()
 export class NumericRangeFormService {
-	private form: FormGroup;
+	private form: NumericRangeFormGroup;
 
 	constructor() {
 		this.form = new FormGroup(
@@ -21,15 +22,15 @@ export class NumericRangeFormService {
 		);
 	}
 
-	get minimumControl(): FormControl {
-		return this.form.get('minimum') as FormControl;
+	get minimumControl(): FormControl<number> {
+		return this.form.get('minimum') as FormControl<number>;
 	}
 
-	get maximumControl(): FormControl {
-		return this.form.get('maximum') as FormControl;
+	get maximumControl(): FormControl<number> {
+		return this.form.get('maximum') as FormControl<number>;
 	}
 
-	get formGroup(): FormGroup {
+	get formGroup(): NumericRangeFormGroup {
 		return this.form;
 	}
 

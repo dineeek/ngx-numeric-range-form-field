@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
-	FormControl,
-	FormGroup,
+	UntypedFormControl,
+	UntypedFormGroup,
 	ValidatorFn,
 	Validators,
 } from '@angular/forms';
@@ -20,7 +20,7 @@ import { startWith, withLatestFrom } from 'rxjs/operators';
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-	form: FormGroup;
+	form: UntypedFormGroup;
 
 	dynamicSyncValidators = new Subject<ValidatorFn | ValidatorFn[]>();
 
@@ -31,29 +31,29 @@ export class AppComponent implements OnInit {
 	resettable = false;
 
 	constructor() {
-		this.form = new FormGroup({
-			range: new FormControl(
+		this.form = new UntypedFormGroup({
+			range: new UntypedFormControl(
 				{
 					minimum: 10,
 					maximum: 100,
 				} as INumericRange,
 				[Validators.min(10), Validators.max(100)]
 			),
-			minimumOption: new FormControl(10, { updateOn: 'blur' }),
-			maximumOption: new FormControl(100, { updateOn: 'blur' }),
+			minimumOption: new UntypedFormControl(10, { updateOn: 'blur' }),
+			maximumOption: new UntypedFormControl(100, { updateOn: 'blur' }),
 		});
 	}
 
-	get rangeControl(): FormControl {
-		return this.form.get('range') as FormControl;
+	get rangeControl(): UntypedFormControl {
+		return this.form.get('range') as UntypedFormControl;
 	}
 
-	get minimumOptionControl(): FormControl {
-		return this.form.get('minimumOption') as FormControl;
+	get minimumOptionControl(): UntypedFormControl {
+		return this.form.get('minimumOption') as UntypedFormControl;
 	}
 
-	get maximumOptionControl(): FormControl {
-		return this.form.get('maximumOption') as FormControl;
+	get maximumOptionControl(): UntypedFormControl {
+		return this.form.get('maximumOption') as UntypedFormControl;
 	}
 
 	ngOnInit(): void {
