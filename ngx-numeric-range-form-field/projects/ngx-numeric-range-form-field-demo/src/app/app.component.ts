@@ -5,7 +5,7 @@ import {
 	ValidatorFn,
 	Validators,
 } from '@angular/forms';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
 import { INumericRange } from 'projects/ngx-numeric-range-form-field/src/lib/form/model/numeric-range-field.model';
 import { merge, Subject } from 'rxjs';
 

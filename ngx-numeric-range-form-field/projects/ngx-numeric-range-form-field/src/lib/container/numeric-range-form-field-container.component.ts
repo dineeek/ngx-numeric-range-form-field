@@ -23,9 +23,9 @@ import {
 	ValidatorFn
 } from '@angular/forms';
 import {
-	FloatLabelType,
-	MatFormFieldAppearance
-} from '@angular/material/form-field';
+	LegacyFloatLabelType as FloatLabelType,
+	MatLegacyFormFieldAppearance as MatFormFieldAppearance
+} from '@angular/material/legacy-form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
